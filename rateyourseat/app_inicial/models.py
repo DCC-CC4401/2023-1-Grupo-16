@@ -6,11 +6,11 @@ from django.db import models
 class User(models.Model):
         name = models.CharField(max_length=20)
         email = models.EmailField()
-        password = models.CharField(max_length=50)
+        password = models.CharField(max_length=50) #placeholder
 
 class Review(models.Model):
         user = models.ForeignKey('User', on_delete=models.CASCADE)
-        concert = models.ForeignKey('Concert', on_delete=models.CASCADE)
+        concert = models.ForeignKey('Concert', on_delete=models.CASCADE) #opcional
         content = models.TextField()                #models.CharField(max_length=500)
         #foto
         sit_sector = models.CharField(max_length=15)
@@ -38,8 +38,12 @@ class Location(models.Model):
         city = models.CharField(max_length=100)
         country = models.CharField(max_length=100)
 
-class Vote(models.Model):
+class Vote_Comment(models.Model):
         user = models.ForeignKey('User', on_delete=models.CASCADE)
         comment = models.ForeignKey('Comment', on_delete=models.CASCADE)
         is_positive = models.BooleanField()
 
+class Vote_Review(models.Model):
+        user = models.ForeignKey('User', on_delete=models.CASCADE)
+        review = models.ForeignKey('Review', on_delete=models.CASCADE)
+        is_positive = models.BooleanField()
