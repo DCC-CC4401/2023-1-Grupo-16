@@ -45,7 +45,7 @@ def sign_up(request):
         nick= request['nick']
         email= request['email']
         contraseña= request['password']
-        user= User.object.create_user(username=nombre, password=contraseña, eail=email, nick=nick)
+        user= User.object.create_user(username=nombre, password=contraseña, email=email, nick=nick)
         return HttpResponseRedirect('/home')
                     
     #sign_up=get_template('signUp.html')
