@@ -5,17 +5,21 @@ from app_inicial.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login,logout
 
-# Create your views here.
-
+"""
+home view: principal page
+Args: request
+Returns: HttpResponse
+"""
 def home(request):
     if request.method=='GET':
         return render(request, "app_inicial/home.html")
 
 
-#    home=get_template('home.html')
-#    home=home.render()
-#    return HttpResponse(home)
-
+"""
+log_in view: log in page
+Args: request
+Returns: HttpResponse
+"""
 def log_in(request):
     if request.method == 'GET':
         return render(request,"app_inicial/logIn.html")
@@ -33,10 +37,22 @@ def log_in(request):
     #log_in=log_in.render()
     #return HttpResponse(log_in)
 
+
+"""
+log_out view: log out page
+Args: request
+Returns: HttpResponse
+"""
 def log_out(request):
     logout(request)
     return HttpResponseRedirect('/home')
 
+
+"""
+sign_up view: sign up page
+Args: request
+Returns: HttpResponse
+"""
 def sign_up(request):
     if request.method == 'GET':
         return render(request,"app_inicial/signUp.html")
