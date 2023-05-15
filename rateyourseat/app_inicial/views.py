@@ -41,10 +41,10 @@ def sign_up(request):
     if request.method == 'GET':
         return render(request,"app_inicial/signUp.html")
     if request.method=='POST':
-        nombre= request['usuario']
-        email= request['email']
-        contraseña= request['password']
-        user= User.object.create_user(username=nombre, password=contraseña, email=email)
+        nombre= request.POST['usuario']
+        email= request.POST['email']
+        contraseña= request.POST['password']
+        user= User.objects.create_user(username=nombre, password=contraseña, email=email)
         return HttpResponseRedirect('/home')
                     
     #sign_up=get_template('signUp.html')
