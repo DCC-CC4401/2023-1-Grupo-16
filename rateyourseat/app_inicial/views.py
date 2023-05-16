@@ -24,17 +24,17 @@ Args: request
 Returns: HttpResponse
 """
 def log_in(request):
-    if request.method == 'GET':
-        return render(request,"app_inicial/logIn.html")
     if request.method == 'POST':
-        email=request.POST['email']
+        nick=request.POST['username']
         contraseña=request.POST['password']
-        usuario= authenticate(email=email, password=contraseña)
+        usuario = authenticate(username=nick, password=contraseña)
         if usuario is not None:
             login(request,usuario)
             return HttpResponseRedirect('/home')
         else:
             return HttpResponseRedirect('/sign_up')
+        
+    return render(request,"app_inicial/logIn.html")
 
 """
 log_out view: log out page
