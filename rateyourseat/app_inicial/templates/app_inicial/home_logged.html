@@ -18,7 +18,14 @@
                     <li class="nav-item"><a class="nav-link active" href="/home">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" href="/reviews">Reseñas</a></li>
                     <li class="nav-item"><a class="nav-link" href="/createReview">Crear reseña</a></li>
-                </ul><a style="background-color: #450077; color: var(--bs-gray-100)" class="btn btn-primary shadow" role="button" href="/log_out">Cerrar sesión</a>
+                </ul>
+                <div><svg class="bi bi-person-circle" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="#24285b" viewBox="0 0 16 16" style="font-size: 33px;">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
+                </svg>
+                <span style="margin-right: 30px; color:#24285b; font-weight: bold; font-size: 15px;">{{request.user.username}}</span>
+                </div>
+                <a style="background-color: #450077; color: var(--bs-gray-100)" class="btn btn-primary shadow" role="button" href="/log_out">Cerrar sesión</a>
             </div>
         </div>
     </nav>

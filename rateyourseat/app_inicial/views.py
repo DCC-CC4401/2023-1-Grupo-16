@@ -33,7 +33,7 @@ def log_in(request):
             login(request,usuario)
             return HttpResponseRedirect('/home')
         else:
-            messages.error(request, 'Nombre de usuario o contraseña incorrectos')
+            messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
             return HttpResponseRedirect('/log_in')
         
     return render(request,"app_inicial/logIn.html")
