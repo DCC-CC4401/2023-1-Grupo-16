@@ -3,6 +3,7 @@ from django.template import Template, Context
 from django.template.loader import get_template
 from app_inicial.models import User
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 
 """
@@ -32,7 +33,8 @@ def log_in(request):
             login(request,usuario)
             return HttpResponseRedirect('/home')
         else:
-            return HttpResponseRedirect('/sign_up')
+            messages.error(request, 'Nombre de usuario o contraseña incorrectos')
+            return HttpResponseRedirect('/log_in')
         
     return render(request,"app_inicial/logIn.html")
 

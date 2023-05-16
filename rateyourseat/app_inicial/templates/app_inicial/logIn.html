@@ -31,7 +31,12 @@
                                 <div class="mb-3"><input class="form-control" type="username" name="username" placeholder="Nombre de usuario"></div>
                                 <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Contraseña"></div>
                                 <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" role="button" href="/home">Iniciar sesión</button></div>
-                                <div><span style="padding-right: 0px;">¿No tienes cuenta?</span><a href="/sign_up"><span style="text-decoration: underline;">Registrarse</span></a></div>
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <p style="color:red" class="error">{{ message }}</p>
+                                    {% endfor %}
+                                {% endif %}
+                                <div><span style="padding-right: 0px;">¿No tienes cuenta?</span><a href="/sign_up"><span style="text-decoration: underline;"> Registrarse</span></a></div>
                                 <p class="text-muted"></p>
                             </form>
                         </div>
