@@ -2,3 +2,7 @@
   background-image: url("../../assets/img/vista_trasera_personas_emocionadas_brazos_levantados_divirtiendose%20(1).jpg");
 }
 
+#rojito {
+  background-color: var(--bs-red);
+  color: var(--bs-gray-100);
+}
