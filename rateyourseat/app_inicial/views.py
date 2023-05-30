@@ -66,3 +66,9 @@ def sign_up(request):
     #sign_up=get_template('signUp.html')
     #sign_up=sign_up.render()
     #return HttpResponse(sign_up)
+
+def add_review(request):
+    if request.method == 'GET':
+        return render(request,"app_inicial/add_review.html")
+    if request.method=='POST':
+        return HttpResponseRedirect('/home')
