@@ -25,4 +25,5 @@ urlpatterns = [
     path('log_in/', log_in),
     path('sign_up/', sign_up),
     path('log_out/', log_out, name='logout'),
+    path('add_review/', add_review, name='add_review'),
 ]
