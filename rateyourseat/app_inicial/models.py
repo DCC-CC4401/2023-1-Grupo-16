@@ -15,6 +15,7 @@ Args: models.Model
 class Review(models.Model):
         user = models.ForeignKey('User', on_delete=models.CASCADE)
         concert = models.ForeignKey('Concert', on_delete=models.CASCADE) #opcional
+        venue = models.ForeignKey('Location', on_delete=models.CASCADE, to_field='name')
         content = models.TextField(max_length=500)
         photo = models.ImageField()
         sit_sector = models.CharField(max_length=15)
