@@ -18,7 +18,7 @@
 }
 .estrella:before {
     z-index: 2;
-    color: rgb(255, 0, 174);
+    color: #ffd200;
 }
 .estrella:after {
     z-index: 1;
