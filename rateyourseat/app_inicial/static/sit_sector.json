@@ -1,0 +1,33 @@
+{
+    "recintos": [
+      {
+        "nombre": "Movistar Arena",
+        "tipos_asiento": ["Cancha", "Cancha VIP", "Platea Alta", "Platea Baja", "Tribuna", "Movilidad reducida", "Otros"]
+      },
+      {
+        "nombre": "Teatro Cariola",
+        "tipos_asiento": ["Platea Alta", "Platea Baja", "Galería", "Palcos", "Cancha", "Otros"]
+      },
+      {
+        "nombre": "Teatro Caupolicán",
+        "tipos_asiento": ["Cancha", "Platea Alta", "Platea Baja", "Palco", "Movilidad reducida", "Otros"]
+      },
+      {
+        "nombre": "Estadio Nacional",
+        "tipos_asiento": ["Cancha", "Cancha VIP", "Andes", "Pacifico", "Galería", "Movilidad reducida", "Otros"]
+      },
+      {
+        "nombre": "Club Hípico",
+        "tipos_asiento": ["Pacífico", "Andes", "Cancha", "Cancha VIP", "Galería", "Movilidad reducida", "Otros"]
+      },
+      {
+        "nombre": "Estadio Monumental",
+        "tipos_asiento": ["Cancha", "Cancha VIP", "Arica", "Magallanes", "Rapa Nui", "Océano", "Cordillera", "Movilidad reducida","Otros"]
+      },
+      {
+        "nombre": "Estadio Bicentenario de la Florida",
+        "tipos_asiento": ["Cancha", "Platea", "Tribuna", "Pit", "Pacífico", "Andes", "Movilidad reducida", "Otros"]
+      }
+    ]
+  }
+  
