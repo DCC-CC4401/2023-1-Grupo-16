@@ -1,4 +1,4 @@
-{
+const sit={
     "recintos": [
       {
         "nombre": "Movistar Arena",
@@ -29,5 +29,33 @@
         "tipos_asiento": ["Cancha", "Platea", "Tribuna", "Pit", "Pacífico", "Andes", "Movilidad reducida", "Otros"]
       }
     ]
-  }
+}
+
+const recintoSelect = document.getElementById("place-select");
+const sectorSelect = document.getElementById("sit-select");
+
+// Llenar el select de recintos con las opciones del JSON
+sit.recintos.forEach(recinto => {
+    const option = document.createElement("option");
+    option.value = recinto.nombre;
+    option.textContent = recinto.nombre;
+    recintoSelect.appendChild(option);
+});
+
+recintoSelect.addEventListener("change", e => {
+    const recintoSeleccionado = e.target.value;
   
+    // Obtener el recinto correspondiente del JSON
+    const recinto = sit.recintos.find(recinto => recinto.nombre === recintoSeleccionado);
+  
+    // Limpiar el select de sectores
+    sectorSelect.innerHTML = "<option selected>Selecciona sector</option>";
+  
+    // Llenar el select de sectores con las opciones del recinto seleccionado
+    recinto.tipos_asiento.forEach(sector => {
+        const option = document.createElement("option");
+        option.value = sector;
+        option.textContent = sector;
+        sectorSelect.appendChild(option);
+    });
+});
