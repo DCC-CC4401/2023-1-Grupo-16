@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
     <link rel="stylesheet" href="../static/css/untitled.css">
+    <link rel="stylesheet" href="../static/css/stars.css">
 </head>
 
 <body>
@@ -33,8 +34,20 @@
                                     <option selected>Selecciona sector</option>
                                 </select>
                             </div>
-                            <div class="mb-3">
-                                <input id="email-1" class="shadow form-control" type="email" name="email" placeholder="Email" />
+                            <div style=" margin-bottom: 50px;">
+                                <label>Evalúa tu experiencia</label>
+                                <div class="estrellas" >
+                                    <input type="radio" id="estrella5" name="puntuacion" value="5">
+                                    <label class="estrella" for="estrella5"></label>
+                                    <input type="radio" id="estrella4" name="puntuacion" value="4">
+                                    <label class="estrella" for="estrella4"></label>
+                                    <input type="radio" id="estrella3" name="puntuacion" value="3">
+                                    <label class="estrella" for="estrella3"></label>
+                                    <input type="radio" id="estrella2" name="puntuacion" value="2">
+                                    <label class="estrella" for="estrella2"></label>
+                                    <input type="radio" id="estrella1" name="puntuacion" value="1">
+                                    <label class="estrella" for="estrella1"></label>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <textarea id="message-1" class="shadow form-control" name="message" rows="6" placeholder="Describe tu experiencia"></textarea>
