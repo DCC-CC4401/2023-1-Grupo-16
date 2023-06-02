@@ -44,8 +44,8 @@ Args: models.Model
 """
 class Concert(models.Model):
         title = models.CharField(max_length=100, unique=True)
-        artist = models.CharField(max_length=100, null=True)
-        date = models.DateField(null=True)
+        artist = models.CharField(max_length=100, null=True, blank=True)
+        date = models.DateField(null=True, blank=True)
         location = models.ForeignKey('Location', on_delete=models.CASCADE, to_field='name')
 
 """
@@ -54,9 +54,9 @@ Args: models.Model
 """
 class Location(models.Model):
         name = models.CharField(max_length=100, unique=True)
-        address = models.CharField(max_length=200, null=True)
-        city = models.CharField(max_length=100, null=True)
-        country = models.CharField(max_length=100, null=True)
+        address = models.CharField(max_length=200, null=True, blank=True)
+        city = models.CharField(max_length=100, null=True, blank=True)
+        country = models.CharField(max_length=100, null=True, blank=True)
         def __str__(self):
                 return self.name
 
