@@ -5,6 +5,8 @@ from app_inicial.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 
 """
 home view: principal page
@@ -67,6 +69,7 @@ def sign_up(request):
     #sign_up=sign_up.render()
     #return HttpResponse(sign_up)
 
+@login_required(login_url='/log_in')
 def add_review(request):
     if request.method == 'GET':
         return render(request,"app_inicial/add_review.html")
