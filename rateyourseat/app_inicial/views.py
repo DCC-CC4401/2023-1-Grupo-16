@@ -14,12 +14,9 @@ Args: request
 Returns: HttpResponse
 """
 def home(request):
-    if request.user.is_authenticated:
-        # El usuario está logeado
-        return render(request, 'app_inicial/home_logged.html')
-    else:
-        # Invitado
-        return render(request, "app_inicial/home.html")
+    is_logged = request.user.is_authenticated
+    return render(request, 'app_inicial/home.html', {'is_logged': is_logged})
+    
 
 """
 log_in view: log in page
