@@ -13,7 +13,7 @@ Review Table with user,concert,content,photo,sit_sector,stars,up_votes,down_vote
 Args: models.Model
 """
 class Review(models.Model):
-        user = models.ForeignKey('User', on_delete=models.CASCADE)
+        user_id = models.ForeignKey('User', on_delete=models.CASCADE)
         # concert = models.ForeignKey('Concert', on_delete=models.CASCADE, to_field='title') 
         concert = models.CharField(max_length=100)
         venue = models.ForeignKey('Location', on_delete=models.CASCADE, to_field='name')
