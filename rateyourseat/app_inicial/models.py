@@ -24,6 +24,8 @@ class Review(models.Model):
         up_votes = models.PositiveSmallIntegerField(default=0)
         down_votes = models.PositiveSmallIntegerField(default=0)
         date = models.DateTimeField()
+        def __str__(self):
+                return self.concert        
 
 """
 Comment table with user,content,review,date 
@@ -55,6 +57,8 @@ class Location(models.Model):
         address = models.CharField(max_length=200, null=True)
         city = models.CharField(max_length=100, null=True)
         country = models.CharField(max_length=100, null=True)
+        def __str__(self):
+                return self.name
 
 """
 #Vote_Comment table with user,comment,is_positive
