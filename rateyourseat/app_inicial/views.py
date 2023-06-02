@@ -1,7 +1,8 @@
+import datetime
 from django.shortcuts import render
 from django.template import Template, Context
 from django.template.loader import get_template
-from app_inicial.models import User
+from app_inicial.models import User, Review, Location
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -70,5 +71,27 @@ def sign_up(request):
 def add_review(request):
     if request.method == 'GET':
         return render(request,"app_inicial/add_review.html")
-    if request.method=='POST':
+    if request.method =='POST':
+        user_id = request.user
+        concert = request.POST['event']
+        venue = Location.objects.get(name=request.POST['place-select'])
+        sit_sector = request.POST['sit-select']
+        content = request.POST['content']
+        photo = None
+        stars = request.POST['puntuacion']
+        up_votes = 0
+        down_votes = 0
+        current_datetime = datetime.datetime.now()
+        review = Review(
+            user_id=user_id, 
+            concert=concert, 
+            venue=venue, 
+            sit_sector=sit_sector, 
+            content=content, 
+            photo=photo, 
+            stars=stars, 
+            up_votes=up_votes, 
+            down_votes=down_votes, 
+            date=current_datetime)
+        review.save()
         return HttpResponseRedirect('/home')
