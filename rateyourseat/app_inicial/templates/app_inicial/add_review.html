@@ -26,6 +26,7 @@
                 <div class="col-md-6">
                     <div>
                         <form class="p-3 p-xl-4" method="post">
+                            {% csrf_token %} <!-- csrf token for basic security -->
                             <div style="margin-bottom: 16px;">
                                 <select id="place-select" name="place-select" class="form-select shadow form-control" aria-label="Default select example">
                                     <option selected>Selecciona recinto</option>
