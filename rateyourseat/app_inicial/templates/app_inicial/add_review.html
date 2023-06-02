@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
     <link rel="stylesheet" href="../static/css/untitled.css">
     <link rel="stylesheet" href="../static/css/stars.css">
+    <link rel="stylesheet" href="../static/css/loadImage.css">
+    
 </head>
 
 <body>
@@ -59,6 +61,28 @@
                                 <button class="btn btn-primary shadow d-block w-100" type="submit">Publicar </button>
                             </div>
                         </form>
+
+                    </form>
+                    <div id="basic__print-files"></div>
+                    <form class="custom__form">
+                      <h3>Custom Image Input</h3>
+                      <p>Add image</p>
+                      <div class="custom__image-container">
+                        <label id="add-img-label" for="add-single-img">+</label>
+                        <input type="file" id="add-single-img" accept="image/jpeg" />
+                      </div>
+                      <input
+                        type="file"
+                        id="image-input"
+                        name="photos"
+                        accept="image/jpeg"
+                        multiple
+                      />
+                      <br />
+                      <div class="form__controls"><button type="submit">Submit</button></div>
+                    </form>
+                    <div id="custom__print-files"></div>
+                    
                     </div>
                 </div>
             </div>
@@ -67,6 +91,7 @@
     <script src="../static/bootstrap/js/bootstrap.min.js"></script>
     <script src="../static/js/startup-modern.js"></script>
     <script src="../static/js/sit_sector.js"></script>
+    <script src="../static/js/loadImage.js"></script>
 </body>
 
 </html>
