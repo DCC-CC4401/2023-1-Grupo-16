@@ -1,64 +1,28 @@
-// Global variables
-const imgInputHelper = document.getElementById("add-single-img");
-const imgInputHelperLabel = document.getElementById("add-img-label");
-const imgContainer = document.querySelector(".custom__image-container");
-const imgFiles = [];
+<script>
+    function previewImages() {
+        var preview = document.getElementById("image-preview");
+        var files = document.getElementById("image-input").files;
 
-const addImgHandler = () => {
-  const file = imgInputHelper.files[0];
-  if (!file) return;
+        preview.innerHTML = ""; // Clear previous preview
 
-  // Generate img preview
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = () => {
-    const newImg = document.createElement("img");
-    newImg.src = reader.result;
-    imgContainer.insertBefore(newImg, imgInputHelperLabel);
-  };
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var reader = new FileReader();
 
-  // Store img file
-  imgFiles.push(file);
+            reader.onload = function (event) {
+                var image = document.createElement("img");
+                image.src = event.target.result;
+                image.style.maxWidth = "200px";
+                image.style.maxHeight = "200px";
+                preview.appendChild(image);
+            };
 
-  // Reset image input
-  imgInputHelper.value = "";
-  return;
-};
+            reader.readAsDataURL(file);
+        }
+    }
 
-const getImgFileList = (imgFiles) => {
-  const imgFilesHelper = new DataTransfer();
-  imgFiles.forEach((imgFile) => imgFilesHelper.items.add(imgFile));
-  return imgFilesHelper.files;
-};
+    var imageInput = document.getElementById("image-input");
+    imageInput.addEventListener("change", preview
 
-const printFiles = (files, container) => {
-  container.innerHTML = "";
-  for (let i = 0; i < files.length; i++) {
-    const p = document.createElement("p");
-    p.textContent = `File: ${files[i].name}, size: ${files[i].size}`;
-    container.appendChild(p);
-  }
-};
 
-const basicFormSubmitHandler = (ev) => {
-  ev.preventDefault();
-  const files = document.getElementById("basic-image-input").files;
-  const container = document.getElementById("basic__print-files");
-  printFiles(files, container);
-};
 
-const customFormSubmitHandler = (ev) => {
-  ev.preventDefault();
-  const firstImgInput = document.getElementById("image-input");
-  firstImgInput.files = getImgFileList(imgFiles);
-  const container = document.getElementById("custom__print-files");
-  printFiles(firstImgInput.files, container);
-};
-
-imgInputHelper.addEventListener("change", addImgHandler);
-document
-  .querySelector(".custom__form")
-  .addEventListener("submit", customFormSubmitHandler);
-document
-  .querySelector(".basic__form")
-  .addEventListener("submit", basicFormSubmitHandler);
