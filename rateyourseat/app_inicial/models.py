@@ -1,3 +1,4 @@
+from django import forms
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -7,6 +8,10 @@ Args: AbstractUser: username,first_name,last_name,email,password,groups,user_per
 """
 class User(AbstractUser):
         nick = models.CharField(max_length=20)
+
+class ReviewForm(forms.Form):
+        image = forms.ImageField(label='image', max_length=100)
+        
 
 """
 Review Table with user,concert,content,photo,sit_sector,stars,up_votes,down_votes,date
