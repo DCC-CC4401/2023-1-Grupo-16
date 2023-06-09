@@ -70,7 +70,7 @@ def sign_up(request):
 @login_required(login_url='/log_in')
 def add_review(request):
     if request.method == 'GET':
-        return render(request,"app_inicial/add_review.html")
+        return render(request,"app_inicial/add_review.html", {"is_logged": request.user.is_authenticated })
     if request.method =='POST':
         user_id = request.user
         concert = request.POST['event']
@@ -95,3 +95,8 @@ def add_review(request):
             date=current_datetime)
         review.save()
         return HttpResponseRedirect('/home')
+    
+@login_required(login_url='/log_in')
+def my_reviews(request):
+    reviews=Review.objects.filter(user_id=request.user.id)
+    return render(request, 'app_inicial/my_reviews.html', {"is_logged": request.user.is_authenticated, "reviews": reviews})
