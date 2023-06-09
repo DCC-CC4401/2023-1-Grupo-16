@@ -98,7 +98,7 @@ def add_review(request):
             down_votes=down_votes, 
             date=current_datetime)
         review.save()
-        return HttpResponseRedirect('/home')
+        return HttpResponseRedirect('/my_reviews')
     
 @login_required(login_url='/log_in')
 def my_reviews(request):
