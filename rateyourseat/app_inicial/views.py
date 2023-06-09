@@ -2,12 +2,13 @@ import datetime
 from django.shortcuts import render
 from django.template import Template, Context
 from django.template.loader import get_template
-from app_inicial.models import User, Review, Location
+from app_inicial.models import User, Review, Location, ReviewForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+
 
 """
 home view: principal page
@@ -78,6 +79,9 @@ def add_review(request):
         sit_sector = request.POST['sit-select']
         content = request.POST['content']
         photo = None
+        form = ReviewForm(request.POST, request.FILES)
+        if form.is_valid():
+            photo = form.cleaned_data.get("image")
         stars = request.POST['puntuacion']
         up_votes = 0
         down_votes = 0
