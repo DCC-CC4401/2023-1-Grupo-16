@@ -95,3 +95,7 @@ def add_review(request):
             date=current_datetime)
         review.save()
         return HttpResponseRedirect('/home')
+
+def reviews(request):
+    reviews = Review.objects.all()
+    return render(request, 'app_inicial/reviews.html')
