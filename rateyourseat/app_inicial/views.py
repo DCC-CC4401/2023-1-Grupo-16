@@ -2,12 +2,13 @@ import datetime
 from django.shortcuts import render
 from django.template import Template, Context
 from django.template.loader import get_template
-from app_inicial.models import User, Review, Location
+from app_inicial.models import User, Review, Location, ReviewForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+
 
 """
 home view: principal page
@@ -70,7 +71,7 @@ def sign_up(request):
 @login_required(login_url='/log_in')
 def add_review(request):
     if request.method == 'GET':
-        return render(request,"app_inicial/add_review.html")
+        return render(request,"app_inicial/add_review.html", {"is_logged": request.user.is_authenticated })
     if request.method =='POST':
         user_id = request.user
         concert = request.POST['event']
@@ -78,6 +79,9 @@ def add_review(request):
         sit_sector = request.POST['sit-select']
         content = request.POST['content']
         photo = None
+        form = ReviewForm(request.POST, request.FILES)
+        if form.is_valid():
+            photo = form.cleaned_data.get("image")
         stars = request.POST['puntuacion']
         up_votes = 0
         down_votes = 0
@@ -94,8 +98,9 @@ def add_review(request):
             down_votes=down_votes, 
             date=current_datetime)
         review.save()
-        return HttpResponseRedirect('/home')
-
-def reviews(request):
-    reviews = Review.objects.all()
-    return render(request, 'app_inicial/reviews.html')
+        return HttpResponseRedirect('/my_reviews')
+    
+@login_required(login_url='/log_in')
+def my_reviews(request):
+    reviews=Review.objects.filter(user_id=request.user.id)
+    return render(request, 'app_inicial/my_reviews.html', {"is_logged": request.user.is_authenticated, "reviews": reviews})

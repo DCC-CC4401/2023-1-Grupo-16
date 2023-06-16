@@ -3,30 +3,45 @@
 {% block title %}Mis reseñas{% endblock %}
 
 {% block content %}
-
-<body>
     <section class="theme py-4 py-xl-5"></section>
     <div class="container py-4 py-xl-5">
         <div class="row mb-5">
             <div class="col-md-8 col-xl-6 text-center mx-auto">
                 <h2>Mis reseñas</h2>
-                <p>Curae hendrerit donec commodo hendrerit egestas tempus, turpis facilisis nostra nunc. Vestibulum dui eget ultrices.</p>
             </div>
         </div>
-        <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
-            <div class="col">
-                <div><img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png">
-                    <div class="py-4"><span>Editar</span>
-                        <h4>Lorem libero donec</h4>
-                        <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p><button class="btn btn-primary" type="button">Eliminar</button>
+        {% if not reviews %}
+                <h4 class="text-center" >No tienes reseñas todavía :c</h4>
+                <br>
+                <div class="text-center">
+                    <a class="btn btn-primary" href="/add-review/">Crear una reseña</a>
+                </div>
+        {% endif %}
+        {% for review in reviews %}
+            <div class="row">
+                <div class="col-md-8">
+                    <div>
+                        <div class="py-4">
+                            <span>Editar</span>
+                            <h4> {{review.venue}} </h4>
+                            <h5> {{review.sit_sector}} </h5>
+                            <p> {{review.content}} </p>
+                            <button class="btn btn-primary" type="button">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div>
+                        <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="{{review.photo}}">
                     </div>
                 </div>
             </div>
-        </div>
+        {%endfor%}
     </div>
     <footer></footer>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/startup-modern.js"></script>
-</body>
 
 {% endblock %}
+{% block scripts %}
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/js/startup-modern.js"></script>
+{%endblock%}
