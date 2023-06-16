@@ -104,3 +104,8 @@ def add_review(request):
 def my_reviews(request):
     reviews=Review.objects.filter(user_id=request.user.id)
     return render(request, 'app_inicial/my_reviews.html', {"is_logged": request.user.is_authenticated, "reviews": reviews})
+
+
+def reviews(request):
+    reviews = Review.objects.all()
+    return render(request, 'app_inicial/reviews.html')
