@@ -18,23 +18,30 @@
                 </div>
         {% endif %}
         {% for review in reviews %}
-            <div class="row">
-                <div class="col-md-8">
-                    <div>
-                        <div class="py-4">
-                            <span>Editar</span>
+        
+            <div class="row border border-3 border-primary">
+                <div class="col-sm-1 border text-center">
+                    <!--
+                        bloque de likes: icono + numero
+                        bloques de dislikes: icono + numero
+                    -->
+                </div>
+                <div class="col-md border text-break">
+                    <div class="py-4">
                             <h4> {{review.venue}} </h4>
                             <h5> {{review.sit_sector}} </h5>
                             <p> {{review.content}} </p>
-                            <button class="btn btn-primary" type="button">Eliminar</button>
-                        </div>
+                            <div class="row row-cols-auto">
+                                <button class="btn btn-sm btn-danger" type="button">Eliminar</button>
+                                <button class="btn btn-sm btn-primary" type="button">Editar</button>    
+                            </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4">
-                    <div>
-                        <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="{{review.photo}}">
-                    </div>
+                {% if review.foto %}
+                <div class="col-6 col-md-3 border">
+                    <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="{{review.photo}}">
                 </div>
+                {% endif %}
             </div>
         {%endfor%}
     </div>
