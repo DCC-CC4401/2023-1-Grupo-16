@@ -61,11 +61,12 @@ def sign_up(request):
         nombre= request.POST['usuario']
         email= request.POST['email']
         contraseña= request.POST['password']
-        if User.objects.filter(username=nombre) is not None:
+        if User.objects.filter(username=nombre).exists():
             #devolver al mismo login ojalá sin borrar la info ingresada con un mensaje que diga que ya existe ese username
             return render(request,"app_inicial/signUp.html", {"error":"El nombre de usario '"+nombre+"' ya existe, eliga uno diferente"})
         user= User.objects.create_user(username=nombre, password=contraseña, email=email)
-        return HttpResponseRedirect('/home')
+        login(request, user)
+        return HttpResponseRedirect('/home',{"is_logged": request.user.is_authenticated })
                     
     #sign_up=get_template('signUp.html')
     #sign_up=sign_up.render()
