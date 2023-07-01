@@ -16,9 +16,19 @@
                     <i class="fas fa-search"></i>
                 </button>
             </div>
+            <div class="input-group mb-3" style="margin-top: 20px;">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Filtrar por:</button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Recinto</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Separated link</a></li>
+                </ul>
+                <input type="text" class="form-control" aria-label="Text input with dropdown button">
+            </div>
         </div>
 
-    <span>Lorem ipsum dolorusrem.</span>
     {% if not all_reviews %}
             <h4 class="text-center" >No hay reseñas disponible aún.</h4>
             <br>
@@ -26,28 +36,12 @@
                 <a class="btn btn-primary" href="/add-review/">Crear una reseña</a>
             </div>
     {% endif %}
-    {% for review in all_reviews %}
-        <div class="row">
-            <div class="col-md-8">
-                <div>
-                    <div class="py-4">
-                        <span>Editar</span>
-                        <h4> {{review.venue}} </h4>
-                        <h5> {{review.sit_sector}} </h5>
-                        <p> {{review.content}} </p>
-                        <button class="btn btn-primary" type="button">Eliminar</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-4">
-                <div>
-                    <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="{{review.photo.url}}">
-                </div>
-            </div>
-        </div>
-    {%endfor%}
-    
-    <a href="/add-review" class="btn floating-button btn-floating"></a>
+
+    {% for element in all_reviews %}
+    {% include 'base_review.html' with review=element %}
+    {% endfor %}
+
+    <a href="/add-review" class="btn floating-button btn-floating">+</a>
 </div>
 {% endblock %}
 
