@@ -1,5 +1,5 @@
 import datetime
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template import Template, Context
 from django.template.loader import get_template
 from app_inicial.models import User, Review, Location, ReviewForm
@@ -7,7 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+# from django.urls import reverse
 
 
 """
@@ -112,8 +112,17 @@ def my_reviews(request):
 
 def reviews(request):
     is_logged = request.user.is_authenticated
-    all_reviews = Review.objects.order_by('-date')
-    if 'recent' in request.GET:
-        all_reviews = all_reviews.order_by('-date')
+    queryset = Review.objects.all()
+    order = request.GET.get('order', '')
+    if order == 'recent':
+        print('hEEREEE')
+        queryset = queryset.order_by('-date')
+
+    elif order == 'oldest':
+        queryset = queryset.order_by('date')
     
-    return render(request, 'app_inicial/reviews.html', {'is_logged': is_logged, 'all_reviews': all_reviews})
+    recintoFilter = request.GET.get('recintoFilter', '')
+    if recintoFilter:
+        queryset = queryset.filter(venue__name=recintoFilter)
+    reviews = queryset.all()
+    return render(request, 'app_inicial/reviews.html', {'is_logged': is_logged, 'all_reviews': reviews})
