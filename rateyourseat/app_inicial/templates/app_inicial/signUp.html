@@ -29,6 +29,9 @@
                                 <form class="text-center" action="" method="post">
                                     {% csrf_token %} <!-- csrf token for basic security -->
                                     <div class="mb-3">
+                                        {% if error %}
+                                        <p style="color:rgb(176, 59, 59);">{{ error }}</p>
+                                        {% endif %}
                                         <input class="form-control" type="text" name="usuario" placeholder="Nombre de usuario" maxlength="20"/>
                                     </div>
                                     <div class="mb-3">
