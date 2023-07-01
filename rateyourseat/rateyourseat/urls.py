@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from app_inicial.views import home, log_in, sign_up, log_out, add_review, my_reviews, reviews
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +30,4 @@ urlpatterns = [
     path('add-review/', add_review, name='add-review'),
     path('reviews/', reviews, name='reviews'),
     path('my_reviews/', my_reviews, name='my_reviews'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
