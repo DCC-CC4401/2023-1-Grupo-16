@@ -1,5 +1,5 @@
-    <div class="row border border-3 border-primary">
-        <div class="col-sm-1 border text-center">
+    <div class="row border border-3 ">
+        <div class="col-sm-1 border text-center" style="background-color:rgb(230, 229, 229);">
             <!--
                 bloque de likes: icono + numero
                 bloques de dislikes: icono + numero
@@ -12,7 +12,8 @@
                     <p> {{review.content}} </p>
                     {% if review.user_id == USER%}
                     <div class="row row-cols-auto">
-                        <button class="btn btn-sm btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#WarningModal">Eliminar</button>
+                        <p> </p>
+                        <button class="btn btn-sm btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#WarningModal" id="">Eliminar</button>
                         <p> </p>
                         <button class="btn btn-sm btn-primary" type="button">Editar</button>    
                     </div>
