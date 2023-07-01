@@ -119,7 +119,7 @@ def single_review(request,id):
     if not id:
         return HttpResponseRedirect('/reviews',{"is_logged": request.user.is_authenticated })
     
-    review=Review.objects.filter(id=id)
+    review=Review.objects.filter(id=id)[0]
     if not review:
         return HttpResponseRedirect('/reviews',{"is_logged": request.user.is_authenticated })
     
@@ -127,12 +127,21 @@ def single_review(request,id):
         return render(request, 'app_inicial/single_review.html', {'is_logged': request.user.is_authenticated,'single_review':review})
     
     if request.method == 'POST':
-        var=request.POST['modify']
-        if var=="delete":
+        modify=request.POST['modify']
+        if modify=="delete":
             Review.objects.filter(id=id).delete()
             return HttpResponseRedirect('/reviews',{"is_logged": request.user.is_authenticated })
             #borrar review y cargar reviews
-        elif var=="edit":
+        elif modify=="edit":
+            concert = request.POST['event']
+            content = request.POST['content']
+            stars = request.POST['puntuacion']
+            review.content=content
+            review.concert=concert
+            review.stars=stars
+            review.save()
+            return render(request, 'app_inicial/single_review.html', {'is_logged': request.user.is_authenticated,'single_review':review})
+
             #render add_review con informacion previa
-            pass
+            
 
