@@ -113,4 +113,7 @@ def my_reviews(request):
 def reviews(request):
     is_logged = request.user.is_authenticated
     all_reviews = Review.objects.order_by('-date')
+    if 'recent' in request.GET:
+        all_reviews = all_reviews.order_by('-date')
+    
     return render(request, 'app_inicial/reviews.html', {'is_logged': is_logged, 'all_reviews': all_reviews})
