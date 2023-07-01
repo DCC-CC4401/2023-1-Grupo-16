@@ -20,18 +20,17 @@
                 <div class="input-group mb-3" style="margin-top: 20px;">
                     <span class="input-group-text" id="basic-addon1">Filtrar por:</span>
                     <div>
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Fecha de publicación</button>
-                        <ul class="dropdown-menu">
-                            <li ><a class="dropdown-item" href="#">Más reciente</a></li>
-                            <li><a class="dropdown-item" href="#" id="porFecha">Por fecha</a></li>
-                        </ul>
+                        <select id="recintoFilter" class="form-select" aria-expanded="false">
+                            <option selected disabled>Recintos</option>
+                        </select>
                     </div>
                     <div>
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Recinto</button>
-                        <ul class="dropdown-menu">
-                        </ul>
+                        <select class="form-select" aria-expanded="false">
+                            <option selected disabled>Fecha de Publicación</option>                            
+                            <option>Más reciente</option>
+                            <option>Por fecha</option>
+                        </select>
                     </div>
-                    
                 </div> 
                 
                 <input type="date" id="fecha" style="display: none; margin-left: 117px; width: 225px;" max="">
@@ -57,4 +56,5 @@
 
 {% block scripts %} 
 <script src="../../static/js/date.js"></script>
+<script src="../../static/js/filterRecintos.js"></script>
 {% endblock %}
