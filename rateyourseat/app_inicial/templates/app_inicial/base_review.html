@@ -10,14 +10,6 @@
                     <h4> {{review.venue}} </h4>
                     <h5> {{review.sit_sector}} </h5>
                     <p> {{review.content}} </p>
-                    {% if review.user_id == USER%}
-                    <div class="row row-cols-auto">
-                        <p> </p>
-                        <button class="btn btn-sm btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#WarningModal" id="">Eliminar</button>
-                        <p> </p>
-                        <button class="btn btn-sm btn-primary" type="button">Editar</button>    
-                    </div>
-                    {% endif %}
             </div>
         </div>
         {% if review.foto %}

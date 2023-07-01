@@ -27,7 +27,7 @@
     {% endif %}
 
     {% for element in all_reviews %}
-    {% include 'base_review.html' with review=element  USER=request.user%}
+    {% include 'base_review.html' with review=element %}
     {% endfor %}
         
     <div class="modal fade" id="WarningModal" tabindex="-1" aria-labelledby="WarningModalLabel" aria-hidden="true">
