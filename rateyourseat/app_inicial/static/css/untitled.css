@@ -27,7 +27,7 @@
   height: 50px;
   border-radius: 50%;
   background-color: #24285b;
-  background-image: url("../../static/img/pencil.svg");
+  background-image: url("../img/pencil.svg");
   background-repeat: no-repeat;
   background-size: 60%; /* Ajusta el tamaño de la imagen */
   background-position: center; /* Centra la imagen */
