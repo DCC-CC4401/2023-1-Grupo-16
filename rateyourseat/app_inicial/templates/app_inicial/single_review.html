@@ -7,8 +7,20 @@
 {% block content %}
 
 <div class="container pt-4 pt-xl-5">
-    {% include 'base_review.html' with review=single_review  USER=request.user%}
-        
+    
+    {% for element in single_review %}    
+        {% include 'base_review.html' with review=element %}
+        {% if element.user_id == request.user%}
+            <form class="row row-cols-auto" method="post">
+                {% csrf_token %} <!-- csrf token for basic security -->
+
+                <button class="btn btn-sm btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#WarningModal" id="">Eliminar</button>
+                <p> </p>
+                <button name="modify" class="btn btn-sm btn-primary" type="submit" value="edit" method="post">Editar</button>    
+            </div> 
+        {% endif %}
+    {% endfor %}
+
     <div class="modal fade" id="WarningModal" tabindex="-1" aria-labelledby="WarningModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -17,10 +29,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <p>¿Estás seguro de que quieres eliminar esta reseña?</p> 
+                    <p>Una vez hecho no se puede deshacer.</p>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger">Eliminar Reseña</button>
+                <form class="modal-footer" method="post">
+                    {% csrf_token %} <!-- csrf token for basic security -->
+
+                    <button name="modify" type="submit" class="btn btn-danger" value="delete" method="post">Eliminar Reseña</button>
                     <button type="button" class="btn" style="background-color: gray;color:azure" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </div>
