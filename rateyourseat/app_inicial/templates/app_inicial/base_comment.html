@@ -6,6 +6,11 @@
                 <h5> {{review.sit_sector}} </h5>
                 <p> {{review.content}} </p>
         </div>
+        {%if review.user_id == USER%}
+        <!--
+            funcionamiento de borrado y modificación para cada comentario
+        -->
+        {%endif%}
     </div>
 </div>
 

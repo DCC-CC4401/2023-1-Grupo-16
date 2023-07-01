@@ -13,17 +13,33 @@
 {% block content %}
 
 <div class="container pt-4 pt-xl-5">
-    
-    
-        {% include 'base_review.html' with review=single_review %}
-        {% if single_review.user_id == request.user%}
-            <form method="post">
-                <div class="row row-cols-auto">
-                    <button class="btn btn-sm btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#WarningModal">Eliminar</button>
-                    <p> </p>
-                    <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#EditModal">Editar</button>    
-                </div> 
-
+    {% include 'base_review.html' with review=single_review bool_comment=True %}
+    <form method="post">
+        {% csrf_token %}
+            <div class="row row-cols-auto">
+                <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#CommentModal">Comentar</button>
+                <p> </p>
+                <div class="modal fade" id="CommentModal" tabindex="-1" aria-labelledby="CommentModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="CommentModalLabel">Comentar</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <textarea id="comment-content" class="shadow form-control" name="comment-content" rows="6" maxlength="250" placeholder="Escribe tu comentario"></textarea>
+                            </div>
+                            <div class="modal-footer">        
+                                <button name="modify" type="submit" class="btn btn-primary" value="comment" method="post">Comentar</button>
+                                <button type="button" class="btn" style="background-color: gray;color:azure" data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+                {% if single_review.user_id == request.user%}
+                <button class="btn btn-sm btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#WarningModal">Eliminar</button>
+                <p> </p>
+                <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#EditModal">Editar</button>
                 <div class="modal fade" id="WarningModal" tabindex="-1" aria-labelledby="WarningModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -86,11 +102,12 @@
                         </div>
                     </div>
                 </div>
-            </form>        
-        {% endif %}
-        {% for comment in single_review%}
-            {% include 'base_comment.html' with comment=comment %}
-        {% endfor %}
+                {% endif %}
+            </div> 
+    </form>
+    {% for comment in comments%}
+        {% include 'base_comment.html' with comment=comment %}
+    {% endfor %}
 
     <a href="/add-review" class="btn floating-button btn-floating">+</a>
 </div>
