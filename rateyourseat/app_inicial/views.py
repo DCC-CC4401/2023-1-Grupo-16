@@ -111,6 +111,37 @@ def my_reviews(request):
 
 
 def reviews(request):
-    is_logged = request.user.is_authenticated
     all_reviews = Review.objects.order_by('-date')
-    return render(request, 'app_inicial/reviews.html', {'is_logged': is_logged, 'all_reviews': all_reviews})
+    return render(request, 'app_inicial/reviews.html', {'is_logged': request.user.is_authenticated, 'all_reviews': all_reviews})
+
+def single_review(request,id):
+    
+    if not id:
+        return HttpResponseRedirect('/reviews',{"is_logged": request.user.is_authenticated })
+    
+    review=Review.objects.filter(id=id)[0]
+    if not review:
+        return HttpResponseRedirect('/reviews',{"is_logged": request.user.is_authenticated })
+    
+    if request.method == 'GET': 
+        return render(request, 'app_inicial/single_review.html', {'is_logged': request.user.is_authenticated,'single_review':review})
+    
+    if request.method == 'POST':
+        modify=request.POST['modify']
+        if modify=="delete":
+            Review.objects.filter(id=id).delete()
+            return HttpResponseRedirect('/reviews',{"is_logged": request.user.is_authenticated })
+            #borrar review y cargar reviews
+        elif modify=="edit":
+            concert = request.POST['event']
+            content = request.POST['content']
+            stars = request.POST['puntuacion']
+            review.content=content
+            review.concert=concert
+            review.stars=stars
+            review.save()
+            return render(request, 'app_inicial/single_review.html', {'is_logged': request.user.is_authenticated,'single_review':review})
+
+            #render add_review con informacion previa
+            
+
