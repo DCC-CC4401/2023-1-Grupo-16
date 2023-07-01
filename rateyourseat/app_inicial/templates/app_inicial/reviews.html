@@ -16,24 +16,25 @@
                     <i class="fas fa-search"></i>
                 </button>
             </div>
-            <form>
+            <form method="GET">
                 <div class="input-group mb-3" style="margin-top: 20px;">
                     <span class="input-group-text" id="basic-addon1" style="margin: 3px 3px 3px 0;">Filtrar por:</span>
                     <div style="margin: 3px;">
-                        <select id="recintoFilter" class="form-select" aria-expanded="false" >
+                        <select id="recintoFilter" name="recintoFilter" class="form-select" aria-expanded="false" >
                             <option selected disabled>Recintos</option>
                         </select>
                     </div>
                     <div style="margin: 3px;">
-                        <select class="form-select" id="fecha-select" aria-expanded="false">
+                        <select class="form-select" id="order" name="order" aria-expanded="false">
                             <option selected disabled>Fecha de Publicación</option>                            
-                            <option>Más reciente</option>
+                            <option value="recent">Más reciente</option>
                             <option id="porFecha">Por fecha</option>
                         </select>
                     </div>
                 </div> 
         
                 <input type="date" id="fecha" style="display: none; margin-left: 461px; width: 243px;" max="">
+                <button type="submit">FILTRAR</button>
 
             </form>
         </div>
