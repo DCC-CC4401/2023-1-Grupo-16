@@ -107,5 +107,6 @@ def my_reviews(request):
 
 
 def reviews(request):
-    reviews = Review.objects.all()
-    return render(request, 'app_inicial/reviews.html')
+    is_logged = request.user.is_authenticated
+    all_reviews = Review.objects.all()
+    return render(request, 'app_inicial/reviews.html', {'is_logged': is_logged, 'all_reviews': all_reviews})
