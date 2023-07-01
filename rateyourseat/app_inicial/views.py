@@ -121,8 +121,8 @@ def reviews(request):
     elif order == 'oldest':
         queryset = queryset.order_by('date')
     
-    recintoFilter = request.GET.get('recintoFilter', '')
-    if recintoFilter:
-        queryset = queryset.filter(venue__name=recintoFilter)
+    venueFilter = request.GET.get('venueFilter', '')
+    if venueFilter:
+        queryset = queryset.filter(venue__name=venueFilter)
     reviews = queryset.all()
     return render(request, 'app_inicial/reviews.html', {'is_logged': is_logged, 'all_reviews': reviews})

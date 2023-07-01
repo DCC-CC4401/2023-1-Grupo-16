@@ -10,7 +10,7 @@ const sit={
     ]
 }
 
-const recintoSelect = document.getElementById("recintoFilter");
+const recintoSelect = document.getElementById("venueFilter");
 
 // Llenar el select de recintos con las opciones del JSON
 sit.recintos.forEach(recinto => {
