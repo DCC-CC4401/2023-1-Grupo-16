@@ -2,6 +2,9 @@
 
 {% block title %}Mis reseñas{% endblock %}
 
+{% block styles %} 
+{% endblock %}
+
 {% block content %}
     <section class="theme py-4 py-xl-5"></section>
     <div class="container py-4 py-xl-5">
@@ -17,31 +20,25 @@
                     <a class="btn btn-primary" href="/add-review/">Crear una reseña</a>
                 </div>
         {% endif %}
-        {% for review in reviews %}
+        {% for element in reviews %}
+        {% include 'base_review.html' with review=element  USER=request.user%}
+        {% endfor %}
         
-            <div class="row border border-3 border-primary">
-                <div class="col-sm-1 border text-center">
-                    <!--
-                        bloque de likes: icono + numero
-                        bloques de dislikes: icono + numero
-                    -->
+        <div class="modal fade" id="WarningModal" tabindex="-1" aria-labelledby="WarningModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="WarningModalLabel">¡¡Vas a eliminar esta reseña!!</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="col-md border text-break">
-                    <div class="py-4">
-                            <h4> {{review.venue}} </h4>
-                            <h5> {{review.sit_sector}} </h5>
-                            <p> {{review.content}} </p>
-                            <div class="row row-cols-auto">
-                                <button class="btn btn-sm btn-danger" type="button">Eliminar</button>
-                                <button class="btn btn-sm btn-primary" type="button">Editar</button>    
-                            </div>
-                    </div>
+                <div class="modal-body">
+                    ...
                 </div>
-                {% if review.foto %}
-                <div class="col-6 col-md-3 border">
-                    <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="{{review.photo}}">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger"  data-bs-dismiss="modal">Eliminar Reseña</button>
+                    <button type="button" class="btn" style="background-color: gray;color:azure">Cancelar</button>
                 </div>
-                {% endif %}
+                </div>
             </div>
         {%endfor%}
         <a href="/add-review" class="btn floating-button btn-floating">+</a>

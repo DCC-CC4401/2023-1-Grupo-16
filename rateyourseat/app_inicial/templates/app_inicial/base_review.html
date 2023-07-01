@@ -1,0 +1,30 @@
+    <div class="row border border-3 border-primary">
+        <div class="col-sm-1 border text-center">
+            <!--
+                bloque de likes: icono + numero
+                bloques de dislikes: icono + numero
+            -->
+        </div>
+        <div class="col-md border text-break">
+            <div class="py-4">
+                    <h4> {{review.venue}} </h4>
+                    <h5> {{review.sit_sector}} </h5>
+                    <p> {{review.content}} </p>
+                    {% if review.user_id == USER%}
+                    <div class="row row-cols-auto">
+                        <button class="btn btn-sm btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#WarningModal">Eliminar</button>
+                        <p> </p>
+                        <button class="btn btn-sm btn-primary" type="button">Editar</button>    
+                    </div>
+                    {% endif %}
+            </div>
+        </div>
+        {% if review.foto %}
+        <div class="col-6 col-md-3 border">
+            <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="{{review.photo}}">
+        </div>
+        {% endif %}
+    </div>
+    <br>
+
+    
