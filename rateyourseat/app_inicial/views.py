@@ -125,13 +125,13 @@ def single_review(request,id):
     comments=Comment.objects.filter(review_id=id)
 
     if request.method == 'GET': 
-        return render(request, 'app_inicial/single_review.html', {'is_logged': request.user.is_authenticated,'single_review':review})
+        return render(request, 'app_inicial/single_review.html', {'is_logged': request.user.is_authenticated,'single_review':review, 'comments':comments})
     
     if request.method == 'POST':
         modify=request.POST['modify']
         if modify=="delete":
             Review.objects.filter(id=id).delete()
-            return HttpResponseRedirect('/reviews',{"is_logged": request.user.is_authenticated })
+            return HttpResponseRedirect('/reviews',{"is_logged": request.user.is_authenticated})
             #borrar review y cargar reviews
         elif modify=="edit":
             concert = request.POST['event']
@@ -141,20 +141,21 @@ def single_review(request,id):
             review.concert=concert
             review.stars=stars
             review.save()
-            return render(request, 'app_inicial/single_review.html', {'is_logged': request.user.is_authenticated,'single_review':review, 'comments':comments})
+            return HttpResponseRedirect('/single_review/'+id,{'is_logged': request.user.is_authenticated,'single_review':review, 'comments':comments})
             #render add_review con informacion previa
         elif modify=="comment":
-            comment_content = request.POST['comment-content']
-            current_datetime = datetime.datetime.now()
-            user_id = request.user
-            review_id = review
-            comment = Comment(
-                user_id=user_id,
-                review_id=review_id,
-                content=comment_content,
-                date=current_datetime
-                )
-            comment.save()
-            return render(request, 'app_inicial/single_review.html', {'is_logged': request.user.is_authenticated,'single_review':review, 'comments':comments})
-            
+            if request.user.is_authenticated: 
+                comment_content = request.POST['comment-content']
+                if comment_content!="":    
+                    current_datetime = datetime.datetime.now()
+                    user_id = request.user
+                    review_id = review
+                    comment = Comment(
+                        user_id=user_id,
+                        review_id=review_id,
+                        content=comment_content,
+                        date=current_datetime
+                        )
+                    comment.save()
+            return HttpResponseRedirect('/single_review/'+id,{'is_logged': request.user.is_authenticated,'single_review':review, 'comments':comments})     
 

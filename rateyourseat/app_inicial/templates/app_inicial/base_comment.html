@@ -1,10 +1,9 @@
 <br>
 <div class="row">
-    <div class="col-md border text-break">
+    <div class="col-md-auto border text-break" style="min-width: 360px;">
         <div class="py-4">
-                <h4> {{USER}} </h4>
-                <h5> {{review.sit_sector}} </h5>
-                <p> {{review.content}} </p>
+                <h6> {{comment.user_id}} </h6>
+                <p> {{comment.content}} </p>
         </div>
         {%if review.user_id == USER%}
         <!--

@@ -27,7 +27,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <textarea id="comment-content" class="shadow form-control" name="comment-content" rows="6" maxlength="250" placeholder="Escribe tu comentario"></textarea>
+                                <textarea id="comment-content" class="shadow form-control" name="comment-content" rows="6" maxlength="250" placeholder="Escribe tu comentario" value=""></textarea>
                             </div>
                             <div class="modal-footer">        
                                 <button name="modify" type="submit" class="btn btn-primary" value="comment" method="post">Comentar</button>
@@ -106,7 +106,7 @@
             </div> 
     </form>
     {% for comment in comments%}
-        {% include 'base_comment.html' with comment=comment %}
+        {% include 'base_comment.html' with comment=comment%}
     {% endfor %}
 
     <a href="/add-review" class="btn floating-button btn-floating">+</a>
