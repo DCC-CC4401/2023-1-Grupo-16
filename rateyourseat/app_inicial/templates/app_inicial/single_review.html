@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %} RateYourSeat {% endblock %}
+
+{% comment %} {% block styles %} {% endblock %} {% endcomment %}
+
+{% block content %}
+
+<div class="container pt-4 pt-xl-5">
+    {% include 'base_review.html' with review=single_review  USER=request.user%}
+        
+    <div class="modal fade" id="WarningModal" tabindex="-1" aria-labelledby="WarningModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="WarningModalLabel">¡¡Vas a eliminar esta reseña!!</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger">Eliminar Reseña</button>
+                    <button type="button" class="btn" style="background-color: gray;color:azure" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="/add-review" class="btn floating-button btn-floating">+</a>
+</div>
+{% endblock %}
+
+{% block scripts %} {% endblock %}
