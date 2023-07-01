@@ -29,7 +29,9 @@
   background-color: #24285b;
   color: #fff;
   text-align: center;
-  line-height: 50px;
+  display: flex; /* Centra el contenido horizontalmente */
+  justify-content: center; /* Centra el contenido horizontalmente */
+  line-height: 35px;
   font-size: 40px;
   z-index: 999;
 }
