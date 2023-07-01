@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} RateYourSeat {% endblock %}
+{% block title %} {{single_review.concert}} {% endblock %}
 
 {% comment %} 
 {% endcomment %}
@@ -88,6 +88,9 @@
                 </div>
             </form>        
         {% endif %}
+        {% for comment in single_review%}
+            {% include 'base_comment.html' with comment=comment %}
+        {% endfor %}
 
     <a href="/add-review" class="btn floating-button btn-floating">+</a>
 </div>
