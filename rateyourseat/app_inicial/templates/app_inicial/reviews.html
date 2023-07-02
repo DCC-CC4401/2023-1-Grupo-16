@@ -10,12 +10,14 @@
 
 <div class="container pt-4 pt-xl-5">         
         <div class="container py-5">
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Buscar reseñas" aria-label="Search" aria-describedby="button-addon2" />
-                <button id="button-addon2" class="btn btn-outline-secondary" type="button">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
+            <form method="GET">
+                <div class="input-group">
+                    <input name="searchReview" class="form-control" type="text" placeholder="Buscar reseñas" aria-label="Search" aria-describedby="button-addon2" />
+                    <button id="button-addon2" class="btn btn-outline-secondary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
             <form method="GET">
                 <div class="input-group mb-3" style="margin-top: 20px;">
                     <span class="input-group-text" id="basic-addon1" style="margin: 3px 3px 3px 0;">Mostrar Reseñas: </span>
