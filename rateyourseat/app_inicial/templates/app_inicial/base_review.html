@@ -1,16 +1,28 @@
-<br>
-<div class="row" onclick="window.location='/single_review/{{review.id}}'">
-        <div class="col-sm-1 border text-center" style="background-color:rgb(230, 229, 229);">
-            <!--
-                bloque de likes: icono + numero
-                bloques de dislikes: icono + numero
-            -->
+<link rel="stylesheet" href="../../static/css/voteButton.css">
+
+<div class="row">
+    <div class="col-sm-1 border text-center" style="background-color: rgb(230, 229, 229);" >
+        <div class="vote-container">
+            <!-- Bloque de upvotes: icono + numero -->
+            <button type="button" class="upvote-button">
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            <p>0</p>
+            <!-- Bloque de downvotes: icono + numero -->
+            <button type="button" class="downvote-button">
+                <i class="fas fa-arrow-down"></i>
+            </button>
         </div>
-        <div class="col-md border text-break">
+    </div>
+        <div class="col-md border text-break" onclick="window.location='/single_review/{{review.id}}'">
             <div class="py-4">
-                    <h4> {{review.venue}} </h4>
-                    <h5> {{review.sit_sector}} </h5>
-                    <p> {{review.content}} </p>
+                <div>
+                    <span> {{review.user_id}}</span>                    
+                    <span> {{review.date}} </span>
+                </div>
+                <h5> {{review.venue}} </h5>
+                <h6> {{review.sit_sector}} </h6>
+                <p style:> {{review.content}} </p>
             </div>
         </div>
         {% if review.photo %}
@@ -20,4 +32,5 @@
         {% endif %}
     </div>
 
+    <script src="../../static/js/voteButton.js"></script>
     
