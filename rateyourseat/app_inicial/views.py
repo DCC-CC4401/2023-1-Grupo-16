@@ -74,9 +74,6 @@ def sign_up(request):
         }
         return HttpResponseRedirect('/home', context)
                     
-    #sign_up=get_template('signUp.html')
-    #sign_up=sign_up.render()
-    #return HttpResponse(sign_up)
 
 @login_required(login_url='/log_in')
 def add_review(request):
