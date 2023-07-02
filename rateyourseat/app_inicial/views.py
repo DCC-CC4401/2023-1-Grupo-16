@@ -139,8 +139,9 @@ def reviews(request):
     context = {
         'is_logged': is_logged,
         'all_reviews': reviews,
+        'current_page': 'reviews',	
     }
-    # Search reviews
+    # Search review by artist or event
     concert = request.GET.get('searchReview')
     if concert:
         context['all_reviews'] = Review.objects.filter(concert__icontains=concert)
