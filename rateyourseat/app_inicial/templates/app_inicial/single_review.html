@@ -17,7 +17,11 @@
     <form method="post">
         {% csrf_token %}
             <div class="row row-cols-auto">
+                {%if not is_logged%}
+                <a class="btn btn-primary shadow" role="button" href="/log_in">Inicia sesión para comentar</a>
+                {%else%}
                 <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#CommentModal">Comentar</button>
+                {%endif%}
                 <p> </p>
                 <div class="modal fade" id="CommentModal" tabindex="-1" aria-labelledby="CommentModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -110,7 +114,7 @@
     {% endfor %}
 
     <a href="/add-review" class="btn floating-button btn-floating"></a>
-    
+
 </div>
 {% endblock %}
 
