@@ -40,7 +40,6 @@ def log_in(request):
         else:
             messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
             return HttpResponseRedirect('/log_in')
-        
     return render(request,"app_inicial/logIn.html")
 
 """
@@ -68,9 +67,12 @@ def sign_up(request):
         if User.objects.filter(username=nombre).exists():
             #devolver al mismo login ojalá sin borrar la info ingresada con un mensaje que diga que ya existe ese username
             return render(request,"app_inicial/signUp.html", {"error":"El nombre de usario '"+nombre+"' ya existe, eliga uno diferente"})
-        user= User.objects.create_user(username=nombre, password=contraseña, email=email)
+        user = User.objects.create_user(username=nombre, password=contraseña, email=email)
         login(request, user)
-        return HttpResponseRedirect('/home',{"is_logged": request.user.is_authenticated })
+        context = {
+            "is_logged": request.user.is_authenticated
+        }
+        return HttpResponseRedirect('/home', context)
                     
     #sign_up=get_template('signUp.html')
     #sign_up=sign_up.render()
