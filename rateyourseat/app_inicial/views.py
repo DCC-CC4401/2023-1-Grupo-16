@@ -109,7 +109,6 @@ def my_reviews(request):
     reviews=Review.objects.filter(user_id=request.user.id)
     return render(request, 'app_inicial/my_reviews.html', {"is_logged": request.user.is_authenticated, "reviews": reviews})
 
-
 def reviews(request):
     is_logged = request.user.is_authenticated
     queryset = Review.objects.all()
@@ -126,13 +125,11 @@ def reviews(request):
         'is_logged': is_logged,
         'all_reviews': reviews,
     }
-    # Search reviwes
+    # Search reviews
     concert = request.GET.get('searchReview')
     if concert:
         context['all_reviews'] = Review.objects.filter(concert__icontains=concert)
     return render(request, 'app_inicial/reviews.html', context)
-    # all_reviews = Review.objects.order_by('-date')
-    # return render(request, 'app_inicial/reviews.html', {'is_logged': request.user.is_authenticated, 'all_reviews': all_reviews})
 
 def single_review(request,id):
     if not id:
