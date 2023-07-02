@@ -13,7 +13,7 @@
                     <p> </p>
                     <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#EditCommentModal{{comment.id}}">Editar Comentario</button>
                     
-                    <input name="comment-id" type="number" disabled  value={{comment.id}}>
+                    <input id="comment-id" name="comment-id" type="number" hidden value={{comment.id}}>
 
                     <div class="modal fade" id="WarningCommentModal{{comment.id}}" tabindex="-1" aria-labelledby="WarningCommentModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -27,12 +27,13 @@
                                     <p>Una vez hecho no se puede deshacer.</p>
                                 </div>
                                 <div class="modal-footer">        
-                                    <button name="modify" type="submit" class="btn btn-danger" value="delete_comment" method="post">Eliminar Reseña</button>
+                                    <button name="modify" type="submit" class="btn btn-danger" value="delete_comment" method="post">Eliminar Comentario</button>
                                     <button type="button" class="btn" style="background-color: gray;color:azure" data-bs-dismiss="modal">Cancelar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="modal fade" id="EditCommentModal{{comment.id}}" tabindex="-1" aria-labelledby="EditCommentModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">

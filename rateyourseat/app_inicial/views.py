@@ -118,7 +118,7 @@ def single_review(request,id):
     if not id:
         return HttpResponseRedirect('/reviews',{"is_logged": request.user.is_authenticated })
     
-    review=Review.objects.filter(id=id)[0]
+    review=Review.objects.get(id=id)
     if not review:
         return HttpResponseRedirect('/reviews',{"is_logged": request.user.is_authenticated })
 
@@ -159,14 +159,14 @@ def single_review(request,id):
                     
         elif modify=="delete_comment":
             comment_id=request.POST['comment-id']
-            comment=Comment.objects.filter(id=comment_id)
+            comment=Comment.objects.get(id=comment_id)
             if comment.user_id==request.user:    
                 comment.delete()
         
         elif modify=="edit_comment":
             comment_id=request.POST['comment-id']
-            comment_content_edit= request.POST['comment_content_edit']
-            comment=Comment.objects.filter(id=comment_id)
+            comment_content_edit= request.POST['comment-content-edit']
+            comment=Comment.objects.get(id=comment_id)
             if comment.user_id==request.user:
                 comment.content=comment_content_edit
                 comment.save()
