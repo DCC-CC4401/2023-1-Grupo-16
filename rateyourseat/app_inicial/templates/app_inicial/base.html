@@ -17,10 +17,10 @@
         <div class="container"><a class="navbar-brand d-flex align-items-center" href="/home"><span>RateYourSeat</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link active" href="/home">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/reviews">Reseñas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/my_reviews">Mis Reseñas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/add-review">Agregar reseña</a></li>
+                    <li class="nav-item"><a class="nav-link{% if current_page == 'home' %} active{% endif %}" href="/home">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link{% if current_page == 'reviews' %} active{% endif %}" href="/reviews">Reseñas</a></li>
+                    <li class="nav-item"><a class="nav-link{% if current_page == 'my_reviews' %} active{% endif %}" href="/my_reviews">Mis Reseñas</a></li>
+                    <li class="nav-item"><a class="nav-link{% if current_page == 'add_review' %} active{% endif %}" href="/add-review">Agregar reseña</a></li>
                 </ul>
                 {% if is_logged %}
                     <div>
