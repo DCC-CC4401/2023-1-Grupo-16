@@ -113,16 +113,17 @@ def my_reviews(request):
 def reviews(request):
     is_logged = request.user.is_authenticated
     queryset = Review.objects.all()
-    order = request.GET.get('order', '')
-    if order == 'recent':
-        print('hEEREEE')
-        queryset = queryset.order_by('-date')
-
-    elif order == 'oldest':
-        queryset = queryset.order_by('date')
-    
+    order = request.GET.get('order')
     venueFilter = request.GET.get('venueFilter', '')
     if venueFilter:
         queryset = queryset.filter(venue__name=venueFilter)
+    if order == 'recent':
+        queryset = queryset.order_by('-date')
+    elif order == 'oldest':
+        queryset = queryset.order_by('date')
     reviews = queryset.all()
-    return render(request, 'app_inicial/reviews.html', {'is_logged': is_logged, 'all_reviews': reviews})
+    context = {
+        'is_logged': is_logged,
+        'all_reviews': reviews,
+    }
+    return render(request, 'app_inicial/reviews.html', context)
