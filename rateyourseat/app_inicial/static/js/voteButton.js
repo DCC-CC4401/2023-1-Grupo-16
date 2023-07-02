@@ -1,14 +1,17 @@
+// Función para manejar el clic en los botones de voto
+function handleVoteClick(event) {
+  const buttons = event.currentTarget.parentElement.querySelectorAll('.upvote-button, .downvote-button');
+  buttons.forEach(button => button.classList.remove('clicked'));
+  event.currentTarget.classList.add('clicked');
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-    const upvoteButton = document.querySelector('.upvote-button');
-    const downvoteButton = document.querySelector('.downvote-button');
+  // Obtener todos los botones de voto
+  const voteButtons = document.querySelectorAll('.upvote-button, .downvote-button');
 
-    upvoteButton.addEventListener('click', function() {
-      this.classList.add('clicked');
-      downvoteButton.classList.remove('clicked');
-    });
-
-    downvoteButton.addEventListener('click', function() {
-      this.classList.add('clicked');
-      upvoteButton.classList.remove('clicked');
-    });
+  // Asignar evento de clic a cada botón de voto
+  voteButtons.forEach(button => {
+    button.addEventListener('click', handleVoteClick);
+  });
 });
+
