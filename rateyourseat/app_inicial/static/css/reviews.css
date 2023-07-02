@@ -1,8 +1,13 @@
 .review-content{
-    /*border-color: rgb(230, 229, 229);*/
-    border-color: #450077;
-    border-style: solid;
+    background-color: rgb(240, 240, 240);
+
     border-radius: 5px;
+    border-width: 1px;
+    padding: 5px;
+    height: 100%;
+}
+.review{
+
     border-width: 1px;
     padding: 5px;
     height: 100%;

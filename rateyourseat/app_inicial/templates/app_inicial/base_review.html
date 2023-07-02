@@ -1,23 +1,27 @@
 <link rel="stylesheet" href="../../static/css/voteButton.css">
 <link rel="stylesheet" href="../../static/css/reviews.css">
+<link rel="stylesheet" href="../static/css/stars.css">
 
 {% load static %}
 
-<div class="row" style="margin-bottom: 7px;">
+<div class="row review" style="margin-bottom: 7px; justify-content: center; align-items: center; background-color: rgb(230, 229, 229);">
     <div class="col-sm-1 border text-center" style="background-color: rgb(230, 229, 229);" >
-        <div class="vote-container">
-            <!-- Bloque de upvotes: icono + numero -->
-            <button type="button" class="upvote-button">
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            <p>0</p>
-            <!-- Bloque de downvotes: icono + numero -->
-            <button type="button" class="downvote-button">
-                <i class="fas fa-arrow-down"></i>
-            </button>
-        </div>
+        <form method="POST">
+        {% csrf_token %} <!-- csrf token for basic security -->
+            <div class="vote-container">
+                <!-- Bloque de upvotes: icono + numero -->
+                <button name="upvote" type="submit" class="upvote-button">
+                    <i class="fas fa-arrow-up"></i>
+                </button>
+                <p>0</p>
+                <!-- Bloque de downvotes: icono + numero -->
+                <button name="downvote" type="submit" type="button" class="downvote-button">
+                    <i class="fas fa-arrow-down"></i>
+                </button>
+            </div>
+        </form>
     </div>
-        <div class="col-md border text-break" onclick="window.location='/single_review/{{review.id}}'">
+        <div class="col-md text-break" onclick="window.location='/single_review/{{review.id}}'">
             <div class="py-4">
                 <div>
                     <span> {{review.user_id}}</span>                    
@@ -30,8 +34,8 @@
             </div>
         </div>
         {% if review.photo %}
-        <div class="col-6 col-md-3">
-            <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="{{review.photo.url}}">
+        <div class="col-6 col-md-3 " style="justify-content: center; align-items: center;">
+            <img class="rounded img-fluid d-block w-100 fit-cover " style="height: 200px; justify-content: center; align-items: center;" src="{{review.photo.url}}">
         </div>
         {% endif %}
     </div>
