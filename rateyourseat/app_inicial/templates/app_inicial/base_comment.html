@@ -1,0 +1,16 @@
+<br>
+<div class="row">
+    <div class="col-md-auto border text-break" style="min-width: 360px;">
+        <div class="py-4">
+                <h6> {{comment.user_id}} </h6>
+                <p> {{comment.content}} </p>
+        </div>
+        {%if review.user_id == USER%}
+        <!--
+            funcionamiento de borrado y modificación para cada comentario
+        -->
+        {%endif%}
+    </div>
+</div>
+
+    
