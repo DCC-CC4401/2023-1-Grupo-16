@@ -145,6 +145,15 @@ def reviews(request):
     concert = request.GET.get('searchReview')
     if concert:
         context['all_reviews'] = Review.objects.filter(concert__icontains=concert)
+    vote = request.POST.get('vote') 
+    review_id = request.POST.get('review_id')
+    if vote: 
+        review = Review.objects.get(id=review_id)
+        if vote == 'up':
+            review.up_votes += 1
+        elif vote == 'down':
+            review.down_votes += 1
+        review.save()
     return render(request, 'app_inicial/reviews.html', context)
 
 def single_review(request,id):
