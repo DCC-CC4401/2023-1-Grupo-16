@@ -149,7 +149,8 @@ def reviews(request):
 
 def single_review(request,id):
     context = {
-        "is_logged": request.user.is_authenticated
+        "is_logged": request.user.is_authenticated,
+        'current_page': 'reviews',
     }
     if not id:
         return HttpResponseRedirect('/reviews', context)
@@ -164,7 +165,8 @@ def single_review(request,id):
         context = {
             'is_logged': request.user.is_authenticated,
             'single_review':review, 
-            'comments':comments
+            'comments':comments,
+            'current_page': 'reviews',
         }
         return render(request, 'app_inicial/single_review.html', context)
     
@@ -173,7 +175,8 @@ def single_review(request,id):
         if modify=="delete":
             Review.objects.filter(id=id).delete()
             context = {
-                "is_logged": request.user.is_authenticated
+                "is_logged": request.user.is_authenticated,
+                'current_page': 'reviews',
             }
             return HttpResponseRedirect('/reviews', context)
         
@@ -217,6 +220,7 @@ def single_review(request,id):
         context = {
             'is_logged': request.user.is_authenticated,
             'single_review':review, 
-            'comments':comments
+            'comments':comments,
+            'current_page': 'reviews',
         }
         return HttpResponseRedirect('/single_review/'+id, context)
