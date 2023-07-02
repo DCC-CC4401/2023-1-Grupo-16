@@ -17,7 +17,11 @@ Returns: HttpResponse
 """
 def home(request):
     is_logged = request.user.is_authenticated
-    return render(request, 'app_inicial/home.html', {'is_logged': is_logged})
+    context = {
+        'is_logged': is_logged,
+        'current_page': 'home',
+    }
+    return render(request, 'app_inicial/home.html', context)
     
 
 """
