@@ -1,0 +1,9 @@
+.review-content{
+    /*border-color: rgb(230, 229, 229);*/
+    border-color: #450077;
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 1px;
+    padding: 5px;
+    height: 100%;
+}

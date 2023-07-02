@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="../../static/css/voteButton.css">
+<link rel="stylesheet" href="../../static/css/reviews.css">
 
-<div class="row">
+{% load static %}
+
+<div class="row" style="margin-bottom: 7px;">
     <div class="col-sm-1 border text-center" style="background-color: rgb(230, 229, 229);" >
         <div class="vote-container">
             <!-- Bloque de upvotes: icono + numero -->
@@ -22,7 +25,8 @@
                 </div>
                 <h5> {{review.venue}} </h5>
                 <h6> {{review.sit_sector}} </h6>
-                <p style:> {{review.content}} </p>
+                <h6> {{review.stars}} </h6>
+                <p class="review-content"> {{review.content}} </p>
             </div>
         </div>
         {% if review.photo %}
