@@ -24,7 +24,6 @@ def manageVote(request,kind):
                 is_positive=0
                 )
             
-        #ahora si o si existe
         #si es 0 -> deberia sumar 1
         if hasVoted.is_positive == 0:
             review.votes+=kind
@@ -195,7 +194,7 @@ def my_reviews(request):
             manageVote(request,1)
         if modify=='downvote':
             manageVote(request,-1)
-        return HttpResponseRedirect('/reviews', context)
+        return HttpResponseRedirect('/my_reviews', context)
 
     return render(request, 'app_inicial/my_reviews.html', context)
 
