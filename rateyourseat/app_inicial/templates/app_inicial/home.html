@@ -17,7 +17,7 @@
             <h1 class="display-4 fw-bold mb-5">La mejor página para reseñas de conciertos</h1>
             <p class="fs-5 text-muted mb-5">Empieza buscando reseñas por recinto o por evento</p>
             <form class="d-flex justify-content-center flex-wrap" method="post">
-              <div class="shadow-lg mb-3"></div>
+      
               <div class="shadow-lg mb-3">
                 <a class="btn btn-primary" href="/reviews/">VER RESEÑAS</a>
               </div>
@@ -81,17 +81,23 @@
             </div>
           {% endif %}
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div> 
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div> 
+      </div>
+    </section>
+  {% else %}
+    <h4 class="text-center" >No hay reseñas disponibles aún.</h4>
+    <br>
+    <div class="text-center">
+        <a class="btn btn-primary" href="/add-review/">Crear una reseña</a>
     </div>
-  </section>
   {% endif %}
 {% endblock %}
 
