@@ -9,7 +9,54 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 # from django.urls import reverse
 
+def manageVote(request,kind):
+    if request.user.is_authenticated:
+        review_id=request.POST['review-id']
+        review=Review.objects.get(id=review_id)
+        #si existia
+        if Vote_Review.objects.filter(user_id=request.user, review_id=review_id).exists():
+            hasVoted=Vote_Review.objects.get(user_id=request.user, review_id=review_id)
+        #si no existia
+        else:
+            hasVoted=Vote_Review(
+                user=request.user,
+                review=review,
+                is_positive=0
+                )
+            
+        #ahora si o si existe
+        #si es 0 -> deberia sumar 1
+        if hasVoted.is_positive == 0:
+            review.votes+=kind
+            review.total_votes+=1
+            hasVoted.is_positive=kind
+            hasVoted.save()
+            review.save()
+            return
+        
+        #si es el contrario de antes -> deberia sumar 2
+        if hasVoted.is_positive != kind:                
+            review.votes+=2*kind
+            review.total_votes+=1
+            hasVoted.is_positive=kind
+            hasVoted.save()
+            review.save()
+            return
+        
+        #si es el mismo de antes -> deberia restar 1
+        else:
+            review.votes-=kind
+            review.total_votes-=1
+            hasVoted.is_positive=0
+            hasVoted.save()
+            review.save()
+            return
 
+def mantainVotes(request,allReviews):
+    for r in allReviews:
+        if Vote_Review.objects.filter(user_id=request.user, review_id=r).exists():
+            r.isPositive=Vote_Review.objects.get(review=r,user=request.user).is_positive
+            
 """
 home view: principal page
 Args: request
@@ -18,11 +65,24 @@ Returns: HttpResponse
 def home(request):
     is_logged = request.user.is_authenticated
     best_review = Review.objects.order_by('-votes').first()
+    
+    if Vote_Review.objects.filter(user_id=request.user, review_id=best_review).exists():
+            best_review.isPositive=Vote_Review.objects.get(review=best_review,user=request.user).is_positive
+
     context = {
         'is_logged': is_logged,
         'current_page': 'home',
         'best_review': best_review,	
     }
+    
+    if request.method == 'POST':
+        modify=request.POST['modify']
+        if modify=='upvote':
+            manageVote(request,1)
+        if modify=='downvote':
+            manageVote(request,-1)
+        return HttpResponseRedirect('/home', context)
+    
     return render(request, 'app_inicial/home.html', context)
     
 
@@ -119,11 +179,23 @@ def add_review(request):
 @login_required(login_url='/log_in')
 def my_reviews(request):
     reviews=Review.objects.filter(user_id=request.user.id)
+    
+    mantainVotes(request, reviews)
+    
     context = {
         "is_logged": request.user.is_authenticated, 
         "reviews": reviews,
         'current_page': 'my_reviews',
     }
+
+    if request.method == 'POST':
+        modify=request.POST['modify']
+        if modify=='upvote':
+            manageVote(request,1)
+        if modify=='downvote':
+            manageVote(request,-1)
+        return HttpResponseRedirect('/reviews', context)
+
     return render(request, 'app_inicial/my_reviews.html', context)
 
 def reviews(request):
@@ -138,6 +210,9 @@ def reviews(request):
     elif order == 'oldest':
         queryset = queryset.order_by('date')
     reviews = queryset.all()
+
+    mantainVotes(request,reviews)
+
     context = {
         'is_logged': is_logged,
         'all_reviews': reviews,
@@ -147,15 +222,15 @@ def reviews(request):
     concert = request.GET.get('searchReview')
     if concert:
         context['all_reviews'] = Review.objects.filter(concert__icontains=concert)
-    vote = request.POST.get('vote') 
-    review_id = request.POST.get('review_id')
-    if vote: 
-        review = Review.objects.get(id=review_id)
-        if vote == 'up':
-            review.votes += 1
-        elif vote == 'down':
-            review.total_votes += 1
-        review.save()
+
+    if request.method == 'POST':
+        modify=request.POST['modify']
+        if modify=='upvote':
+            manageVote(request,1)
+        if modify=='downvote':
+            manageVote(request,-1)
+        return HttpResponseRedirect('/reviews', context)
+      
     return render(request, 'app_inicial/reviews.html', context)
 
 def single_review(request,id):
@@ -171,6 +246,9 @@ def single_review(request,id):
         return HttpResponseRedirect('/reviews', context)
 
     comments = Comment.objects.filter(review_id=id)
+
+    if Vote_Review.objects.filter(user_id=request.user, review_id=review).exists():
+            review.isPositive=Vote_Review.objects.get(review=review,user=request.user).is_positive
 
     if request.method == 'GET': 
         context = {
@@ -230,48 +308,10 @@ def single_review(request,id):
                 comment.save()
         
         elif modify=="upvote":
-            review_id=request.POST['review-id']
-            if request.user.is_authenticated:
-                review_id=request.POST['review-id']
-                review=Review.objects.get(id=review_id)
-                
-                if Vote_Review.objects.filter(user_id=request.user, review_id=review_id).exists():
-                    hasVoted=Vote_Review.objects.get(user_id=request.user, review_id=review_id)
-                else:
-                    hasVoted=Vote_Review(
-                        user=request.user,
-                        review=review,
-                        is_positive=0
-                        )
-                
-                if hasVoted.is_positive != 1:                
-                    review.votes+=1
-                    review.total_votes+=1
-                    hasVoted.is_positive=1
-                    hasVoted.save()
-                    review.save()
+            manageVote(request,1)
 
         elif modify=="downvote":
-            review_id=request.POST['review-id']
-            if request.user.is_authenticated:
-                review_id=request.POST['review-id']
-                review=Review.objects.get(id=review_id)
-                
-                if Vote_Review.objects.filter(user_id=request.user, review_id=review_id).exists():
-                    hasVoted=Vote_Review.objects.get(user_id=request.user, review_id=review_id)
-                else:
-                    hasVoted=Vote_Review(
-                        user=request.user,
-                        review=review,
-                        is_positive=0
-                        )
-                
-                if hasVoted.is_positive != -1:                
-                    review.votes-=1
-                    review.total_votes+=1
-                    hasVoted.is_positive= (-1)
-                    hasVoted.save()
-                    review.save()
+            manageVote(request,-1)
         
         context = {
             'is_logged': request.user.is_authenticated,
