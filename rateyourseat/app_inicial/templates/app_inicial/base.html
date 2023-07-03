@@ -46,6 +46,33 @@
         </div>
     </footer>
     {% block scripts %} {% endblock %}
+    <script>
+        // Se obtienen los elementos con la clase "stars-container"
+        const starsContainer = document.getElementsByClassName('stars-container');
+
+        // Recorre los elementos de la colección
+        for (var j = 0; j < starsContainer.length; j++) {
+            var element = starsContainer[j];
+            
+            // Define el valor numérico de las estrellas (1-5)
+            var valorEstrellas = element.getAttribute('data-stars');
+
+            // Genera las etiquetas <label> y aplica las clases correspondientes
+            for (var i = 1; i <= 5; i++) {
+                var starLabel = document.createElement('label');
+                
+                starLabel.classList.add('star');
+                
+                if (i <= valorEstrellas) {
+                starLabel.classList.add('star-filled');
+                }
+                
+                starLabel.textContent = '\u2605'; // Agrega el carácter Unicode para la estrella
+                
+                element.appendChild(starLabel);
+            }
+        }
+    </script>
     <script src="../static/bootstrap/js/bootstrap.min.js"></script>
     <script src="../static/js/startup-modern.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

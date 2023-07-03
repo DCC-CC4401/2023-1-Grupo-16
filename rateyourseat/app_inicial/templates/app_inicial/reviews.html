@@ -28,19 +28,15 @@
                         </div>
                         <div style="margin: 3px;">
                             <select class="form-select" id="order" name="order" aria-expanded="false">
-                                <option selected disabled>Ordenar por</option>                            
-                                <option value="recent">Más reciente</option>
-                                <option value="oldest">Más antiguo</option>
-                                <option id="porFecha">Fecha especifica</option>
+                                <option selected disabled>Ordenar por</option> 
+                                <option value="best">Mejor</option>   
+                                <option value="popular">Popular</option>                        
+                                <option value="recent">Nuevo</option>
+                                <option value="oldest">Antiguo</option>
                             </select>
                         </div>
                     <button class="btn btn-outline-primary" style="margin: 3px 3px 3px 0;" type="submit">Filtrar</button>
                 </div> 
-                <div id="fecha" style="display: none;">
-                    <span class="input-group-text"  style="margin: 3px 3px 3px 0; width: 169px;">Selecciona Fecha: </span>
-                    <span><input type="date" id="calendar" style=" width: 169px;" max=""></span>
-                    
-                </div>
             </form>
         </div>
 
@@ -55,7 +51,6 @@
     {% for element in all_reviews %}
     {% include 'base_review.html' with review=element %}
     {% endfor %}
-
     <a href="/add-review" class="btn floating-button btn-floating"></a>
 </div>
 {% endblock %}

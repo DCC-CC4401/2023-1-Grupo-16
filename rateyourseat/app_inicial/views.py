@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from app_inicial.utils import create_initial_locations
 # from django.urls import reverse
 
 def manageVote(request,kind):
@@ -63,18 +64,20 @@ Returns: HttpResponse
 """
 def home(request):
     is_logged = request.user.is_authenticated
-    best_review = Review.objects.order_by('-votes').first()
-    
+    best_reviews = Review.objects.order_by('-votes')[:3]
+    best_review = best_reviews[0] if len(best_reviews) > 0 else None
+    second_best_review = best_reviews[1] if len(best_reviews) > 1 else None
+    third_best_review = best_reviews[2] if len(best_reviews) > 2 else None
     if is_logged:
         if Vote_Review.objects.filter(user_id=request.user, review_id=best_review).exists():
                 best_review.isPositive=Vote_Review.objects.get(review=best_review,user=request.user).is_positive
-
     context = {
         'is_logged': is_logged,
         'current_page': 'home',
         'best_review': best_review,	
+        'second_best_review': second_best_review,
+        'third_best_review': third_best_review,
     }
-    
     if request.method == 'POST':
         modify=request.POST['modify']
         if modify=='upvote':
@@ -82,7 +85,6 @@ def home(request):
         if modify=='downvote':
             manageVote(request,-1)
         return HttpResponseRedirect('/home', context)
-    
     return render(request, 'app_inicial/home.html', context)
     
 
@@ -148,7 +150,11 @@ def add_review(request):
     if request.method =='POST':
         user_id = request.user
         concert = request.POST['event']
-        venue = Location.objects.get(name=request.POST['place-select'])
+        venue_name = request.POST['place-select']
+        if Location.objects.filter(name=venue_name).exists()!=True:
+            print("This venue does not exist in the database")
+            create_initial_locations()
+        venue = Location.objects.get(name=venue_name)
         sit_sector = request.POST['sit-select']
         content = request.POST['content']
         photo = None
@@ -178,8 +184,8 @@ def add_review(request):
     
 @login_required(login_url='/log_in')
 def my_reviews(request):
-    reviews=Review.objects.filter(user_id=request.user.id)
-    
+    reviews = Review.objects.filter(user_id=request.user.id)
+    reviews = reviews.order_by('-date')
     mantainVotes(request, reviews)
     
     context = {
@@ -209,6 +215,10 @@ def reviews(request):
         queryset = queryset.order_by('-date')
     elif order == 'oldest':
         queryset = queryset.order_by('date')
+    elif order == 'best':
+        queryset = queryset.order_by('-votes')
+    elif order == 'popular':
+        queryset = queryset.order_by('-total_votes')
     reviews = queryset.all()
 
     if is_logged:
