@@ -74,6 +74,15 @@ def home(request):
         'current_page': 'home',
         'best_review': best_review,	
     }
+    
+    if request.method == 'POST':
+        modify=request.POST['modify']
+        if modify=='upvote':
+            manageVote(request,1)
+        if modify=='downvote':
+            manageVote(request,-1)
+        return HttpResponseRedirect('/home', context)
+    
     return render(request, 'app_inicial/home.html', context)
     
 
@@ -173,23 +182,20 @@ def my_reviews(request):
     
     mantainVotes(request, reviews)
     
+    context = {
+        "is_logged": request.user.is_authenticated, 
+        "reviews": reviews,
+        'current_page': 'my_reviews',
+    }
+
     if request.method == 'POST':
         modify=request.POST['modify']
         if modify=='upvote':
             manageVote(request,1)
         if modify=='downvote':
             manageVote(request,-1)
-        context = {
-        "is_logged": request.user.is_authenticated, 
-        "reviews": reviews,
-        'current_page': 'my_reviews',
-    }
         return HttpResponseRedirect('/reviews', context)
-    context = {
-        "is_logged": request.user.is_authenticated, 
-        "reviews": reviews,
-        'current_page': 'my_reviews',
-    }
+
     return render(request, 'app_inicial/my_reviews.html', context)
 
 def reviews(request):
