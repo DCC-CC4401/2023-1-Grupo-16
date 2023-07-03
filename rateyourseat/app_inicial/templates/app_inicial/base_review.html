@@ -1,11 +1,10 @@
 <link rel="stylesheet" href="../../static/css/voteButton.css">
 <link rel="stylesheet" href="../../static/css/reviews.css">
-<link rel="stylesheet" href="../static/css/stars.css">
 
 {% load static %}
 
 <div class="row review" style="margin-bottom: 7px; justify-content: center; align-items: center; background-color: rgb(230, 229, 229);">
-    <div class="col-sm-1 border text-center" style="background-color: rgb(230, 229, 229);" >
+    <div class="col-sm-1 text-center" style="background-color: rgb(230, 229, 229);" >
         <div class="vote-container">
             <!-- Bloque de upvotes: icono + numero -->
             <form method="post">
@@ -30,8 +29,10 @@
                 </div>
                 <span class="venue"> {{review.venue}} </span>
                 <span class="venue">— {{review.sit_sector}}</span>
-                <h5> {{review.concert}}</h5>
+                <h5 class="concert"> {{review.concert}}</h5>
                 <h6> {{review.stars}} </h6>
+                <span>Aquí van las estrellas</span>
+                <div id="stars-container"></div>
                 <p class="review-content"> {{review.content}} </p>
             </div>
         </div>
@@ -43,4 +44,5 @@
     </div>
 
     <script src="../../static/js/voteButton.js"></script>
+    <script src="../../static/js/star.js"></script>
     

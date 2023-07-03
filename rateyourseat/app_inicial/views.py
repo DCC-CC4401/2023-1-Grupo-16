@@ -224,7 +224,7 @@ def reviews(request):
         if modify=='downvote':
             manageVote(request,-1)
         return HttpResponseRedirect('/reviews', context)
-
+      
     return render(request, 'app_inicial/reviews.html', context)
 
 def single_review(request,id):

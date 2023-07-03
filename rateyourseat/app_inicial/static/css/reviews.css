@@ -30,3 +30,18 @@
     font-size: 18px;
     color: rgb(0, 0, 0);
 }
+
+.concert{
+    font-size: 16px;
+    color: rgb(0, 0, 0);
+}
+
+.star {
+    display: inline-block;
+    font-size: 20px;
+    color: #ccc;
+}
+  
+.star-filled {
+    color: #ffd200;
+}
