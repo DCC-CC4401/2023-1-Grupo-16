@@ -17,7 +17,7 @@ Returns: HttpResponse
 """
 def home(request):
     is_logged = request.user.is_authenticated
-    best_review = Review.objects.order_by('-up_votes').first()
+    best_review = Review.objects.order_by('-votes').first()
     context = {
         'is_logged': is_logged,
         'current_page': 'home',
@@ -96,7 +96,7 @@ def add_review(request):
         if form.is_valid():
             photo = form.cleaned_data.get("image")
         stars = request.POST['puntuacion']
-        up_votes = 0
+        votes = 0
         down_votes = 0
         current_datetime = datetime.datetime.now()
         review = Review(
@@ -107,7 +107,7 @@ def add_review(request):
             content=content, 
             photo=photo, 
             stars=stars, 
-            up_votes=up_votes, 
+            votes=votes, 
             down_votes=down_votes, 
             date=current_datetime)
         review.save()
@@ -152,7 +152,7 @@ def reviews(request):
     if vote: 
         review = Review.objects.get(id=review_id)
         if vote == 'up':
-            review.up_votes += 1
+            review.votes += 1
         elif vote == 'down':
             review.down_votes += 1
         review.save()

@@ -71,7 +71,7 @@ class Migration(migrations.Migration):
                 ('content', models.TextField(max_length=500)),
                 ('photo', models.ImageField(blank=True, null=True, upload_to='media/images/')),
                 ('stars', models.PositiveSmallIntegerField()),
-                ('up_votes', models.PositiveSmallIntegerField(default=0)),
+                ('votes', models.PositiveSmallIntegerField(default=0)),
                 ('down_votes', models.PositiveSmallIntegerField(default=0)),
                 ('date', models.DateTimeField()),
                 ('user_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
