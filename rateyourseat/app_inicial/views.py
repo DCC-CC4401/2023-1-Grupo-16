@@ -17,9 +17,11 @@ Returns: HttpResponse
 """
 def home(request):
     is_logged = request.user.is_authenticated
+    best_review = Review.objects.order_by('-up_votes').first()
     context = {
         'is_logged': is_logged,
         'current_page': 'home',
+        'best_review': best_review,	
     }
     return render(request, 'app_inicial/home.html', context)
     
