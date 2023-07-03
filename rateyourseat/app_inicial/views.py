@@ -180,8 +180,8 @@ def add_review(request):
     
 @login_required(login_url='/log_in')
 def my_reviews(request):
-    reviews=Review.objects.filter(user_id=request.user.id)
-    
+    reviews = Review.objects.filter(user_id=request.user.id)
+    reviews = reviews.order_by('-date')
     mantainVotes(request, reviews)
     
     context = {
