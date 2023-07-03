@@ -25,12 +25,13 @@
     </div>
         <div class="col-md text-break" onclick="window.location='/single_review/{{review.id}}'">
             <div class="py-4">
-                <div>
+                <div class="author-date">
                     <span> {{review.user_id}}</span>                    
-                    <span> {{review.date}} </span>
+                    <span class="date"> {{review.date}} </span>
                 </div>
-                <h5> {{review.venue}} </h5>
-                <h6> {{review.sit_sector}} </h6>
+                <span class="venue"> {{review.venue}} </span>
+                <span class="venue">— {{review.sit_sector}}</span>
+                <h5> {{review.concert}}</h5>
                 <h6> {{review.stars}} </h6>
                 <p class="review-content"> {{review.content}} </p>
             </div>
