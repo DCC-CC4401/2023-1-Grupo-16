@@ -10,13 +10,13 @@
             <!-- Bloque de upvotes: icono + numero -->
             <form method="post">
                 {% csrf_token %}
-                <button name="modify" value="upvote" type="submit" {% if esteusuariovotopositivo %} class="upvote-button.clicked" {% else %} class="upvote-button" {% endif %} {% if not is_logged %}disabled{% endif %}>
+                <button name="modify" value="upvote" type="submit" {% if review.isPositive == 1 %} class="upvote-button.clicked" {% else %} class="upvote-button" {% endif %} {% if not is_logged %}disabled{% endif %}>
                     <i class="fas fa-arrow-up"></i>
                 </button>
                 <input name="review-id" type="text" hidden value={{review.id}}>
                 <p>{{review.votes}}</p>
                 <!-- Bloque de downvotes: icono + numero -->
-                <button name="modify" value="downvote" type="submit" class="downvote-button" {% if not is_logged %}disabled{% endif %}>
+                <button name="modify" value="downvote" type="submit" {% if review.isPositive == -1 %} class="downvote-button.clicked" {% else %} class="downvote-button" {% endif %} {% if not is_logged %}disabled{% endif %}>
                     <i class="fas fa-arrow-down"></i>
                 </button>
             </form>

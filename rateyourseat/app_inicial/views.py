@@ -52,6 +52,11 @@ def manageVote(request,kind):
             review.save()
             return
 
+def mantainVotes(request,allReviews):
+    for r in allReviews:
+        if Vote_Review.objects.filter(user_id=request.user, review_id=r).exists():
+            r.isPositive=Vote_Review.objects.get(review=r,user=request.user).is_positive
+            
 """
 home view: principal page
 Args: request
@@ -60,6 +65,10 @@ Returns: HttpResponse
 def home(request):
     is_logged = request.user.is_authenticated
     best_review = Review.objects.order_by('-votes').first()
+    
+    if Vote_Review.objects.filter(user_id=request.user, review_id=best_review).exists():
+            best_review.isPositive=Vote_Review.objects.get(review=best_review,user=request.user).is_positive
+
     context = {
         'is_logged': is_logged,
         'current_page': 'home',
@@ -161,6 +170,21 @@ def add_review(request):
 @login_required(login_url='/log_in')
 def my_reviews(request):
     reviews=Review.objects.filter(user_id=request.user.id)
+    
+    mantainVotes(request, reviews)
+    
+    if request.method == 'POST':
+        modify=request.POST['modify']
+        if modify=='upvote':
+            manageVote(request,1)
+        if modify=='downvote':
+            manageVote(request,-1)
+        context = {
+        "is_logged": request.user.is_authenticated, 
+        "reviews": reviews,
+        'current_page': 'my_reviews',
+    }
+        return HttpResponseRedirect('/reviews', context)
     context = {
         "is_logged": request.user.is_authenticated, 
         "reviews": reviews,
@@ -180,6 +204,9 @@ def reviews(request):
     elif order == 'oldest':
         queryset = queryset.order_by('date')
     reviews = queryset.all()
+
+    mantainVotes(request,reviews)
+
     context = {
         'is_logged': is_logged,
         'all_reviews': reviews,
@@ -213,7 +240,10 @@ def single_review(request,id):
         return HttpResponseRedirect('/reviews', context)
 
     comments = Comment.objects.filter(review_id=id)
-    
+
+    if Vote_Review.objects.filter(user_id=request.user, review_id=review).exists():
+            review.isPositive=Vote_Review.objects.get(review=review,user=request.user).is_positive
+
     if request.method == 'GET': 
         context = {
             'is_logged': request.user.is_authenticated,
