@@ -5,13 +5,13 @@
 {% load static %}
 
 <div class="row review" style="margin-bottom: 7px; justify-content: center; align-items: center; background-color: rgb(230, 229, 229);">
-    <div class="col-sm-1 border text-center" style="background-color: rgb(230, 229, 229);" >
+    <div class="col-sm-1 text-center" style="background-color: rgb(230, 229, 229);" >
         <div class="vote-container">
             <!-- Bloque de upvotes: icono + numero -->
             <button type="button" class="upvote-button">
                 <i class="fas fa-arrow-up"></i>
             </button>
-            <p>0</p>
+            <span>0</span>
             <!-- Bloque de downvotes: icono + numero -->
             <button type="button" class="downvote-button">
                 <i class="fas fa-arrow-down"></i>
@@ -20,12 +20,13 @@
     </div>
         <div class="col-md text-break" onclick="window.location='/single_review/{{review.id}}'">
             <div class="py-4">
-                <div>
+                <div class="author-date">
                     <span> {{review.user_id}}</span>                    
-                    <span> {{review.date}} </span>
+                    <span class="date"> {{review.date}} </span>
                 </div>
-                <h5> {{review.venue}} </h5>
-                <h6> {{review.sit_sector}} </h6>
+                <span class="venue"> {{review.venue}} </span>
+                <span class="venue">— {{review.sit_sector}}</span>
+                <h5> {{review.concert}}</h5>
                 <h6> {{review.stars}} </h6>
                 <p class="review-content"> {{review.content}} </p>
             </div>
