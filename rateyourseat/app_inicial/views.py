@@ -9,6 +9,35 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 # from django.urls import reverse
 
+def manageVote(request,kind):
+    if request.user.is_authenticated:
+        review_id=request.POST['review-id']
+        review=Review.objects.get(id=review_id)
+        
+        if Vote_Review.objects.filter(user_id=request.user, review_id=review_id).exists():
+            hasVoted=Vote_Review.objects.get(user_id=request.user, review_id=review_id)
+        else:
+            hasVoted=Vote_Review(
+                user=request.user,
+                review=review,
+                is_positive=0
+                )
+        
+        if hasVoted.is_positive != kind:                
+            review.votes+=kind
+            review.total_votes+=1
+            hasVoted.is_positive=kind
+            hasVoted.save()
+            review.save()
+            return
+        
+        else:
+            review.votes-=kind
+            review.total_votes-=1
+            hasVoted.is_positive=0
+            hasVoted.save()
+            review.save()
+            return
 
 """
 home view: principal page
@@ -17,7 +46,7 @@ Returns: HttpResponse
 """
 def home(request):
     is_logged = request.user.is_authenticated
-    best_review = Review.objects.order_by('-up_votes').first()
+    best_review = Review.objects.order_by('-votes').first()
     context = {
         'is_logged': is_logged,
         'current_page': 'home',
@@ -96,8 +125,8 @@ def add_review(request):
         if form.is_valid():
             photo = form.cleaned_data.get("image")
         stars = request.POST['puntuacion']
-        up_votes = 0
-        down_votes = 0
+        votes = 0
+        total_votes = 0
         current_datetime = datetime.datetime.now()
         review = Review(
             user_id=user_id, 
@@ -107,8 +136,8 @@ def add_review(request):
             content=content, 
             photo=photo, 
             stars=stars, 
-            up_votes=up_votes, 
-            down_votes=down_votes, 
+            votes=votes, 
+            total_votes=total_votes, 
             date=current_datetime)
         review.save()
         context = {
@@ -147,15 +176,15 @@ def reviews(request):
     concert = request.GET.get('searchReview')
     if concert:
         context['all_reviews'] = Review.objects.filter(concert__icontains=concert)
-    vote = request.POST.get('vote') 
-    review_id = request.POST.get('review_id')
-    if vote: 
-        review = Review.objects.get(id=review_id)
-        if vote == 'up':
-            review.up_votes += 1
-        elif vote == 'down':
-            review.down_votes += 1
-        review.save()
+
+    if request.method == 'POST':
+        modify=request.POST['modify']
+        if modify=='upvote':
+            manageVote(request,1)
+        if modify=='downvote':
+            manageVote(request,-1)
+        return HttpResponseRedirect('/reviews', context)
+
     return render(request, 'app_inicial/reviews.html', context)
 
 def single_review(request,id):
@@ -230,48 +259,10 @@ def single_review(request,id):
                 comment.save()
         
         elif modify=="upvote":
-            review_id=request.POST['review-id']
-            if request.user.is_authenticated:
-                review_id=request.POST['review-id']
-                review=Review.objects.get(id=review_id)
-                
-                if Vote_Review.objects.filter(user_id=request.user, review_id=review_id).exists():
-                    hasVoted=Vote_Review.objects.get(user_id=request.user, review_id=review_id)
-                else:
-                    hasVoted=Vote_Review(
-                        user=request.user,
-                        review=review,
-                        is_positive=0
-                        )
-                
-                if hasVoted.is_positive != 1:                
-                    review.votes+=1
-                    review.total_votes+=1
-                    hasVoted.is_positive=1
-                    hasVoted.save()
-                    review.save()
+            manageVote(request,1)
 
         elif modify=="downvote":
-            review_id=request.POST['review-id']
-            if request.user.is_authenticated:
-                review_id=request.POST['review-id']
-                review=Review.objects.get(id=review_id)
-                
-                if Vote_Review.objects.filter(user_id=request.user, review_id=review_id).exists():
-                    hasVoted=Vote_Review.objects.get(user_id=request.user, review_id=review_id)
-                else:
-                    hasVoted=Vote_Review(
-                        user=request.user,
-                        review=review,
-                        is_positive=0
-                        )
-                
-                if hasVoted.is_positive != -1:                
-                    review.votes-=1
-                    review.total_votes+=1
-                    hasVoted.is_positive= (-1)
-                    hasVoted.save()
-                    review.save()
+            manageVote(request,-1)
         
         context = {
             'is_logged': request.user.is_authenticated,
