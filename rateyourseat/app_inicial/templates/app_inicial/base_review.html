@@ -9,39 +9,38 @@
             <!-- Bloque de upvotes: icono + numero -->
             <form method="post">
                 {% csrf_token %}
-                <button name="modify" value="upvote" type="submit" {% if review.isPositive == 1 %} class="upvote-button.clicked" {% else %} class="upvote-button" {% endif %} {% if not is_logged %}disabled{% endif %}>
+                <button name="modify" value="upvote" type="submit" {% if review.isPositive == 1 %} class="upvote-button clicked" {% else %} class="upvote-button" {% endif %} {% if not is_logged %}disabled{% endif %}>
                     <i class="fas fa-arrow-up"></i>
                 </button>
                 <input name="review-id" type="text" hidden value={{review.id}}>
                 <p>{{review.votes}}</p>
                 <!-- Bloque de downvotes: icono + numero -->
-                <button name="modify" value="downvote" type="submit" {% if review.isPositive == -1 %} class="downvote-button.clicked" {% else %} class="downvote-button" {% endif %} {% if not is_logged %}disabled{% endif %}>
+                <button name="modify" value="downvote" type="submit" {% if review.isPositive == -1 %} class="downvote-button clicked" {% else %} class="downvote-button" {% endif %} {% if not is_logged %}disabled{% endif %}>
                     <i class="fas fa-arrow-down"></i>
                 </button>
             </form>
         </div>
     </div>
-        <div class="col-md text-break" onclick="window.location='/single_review/{{review.id}}'">
-            <div class="py-4">
-                <div class="author-date">
-                    <span> {{review.user_id}}</span>                    
-                    <span class="date"> {{review.date}} </span>
-                </div>
-                <span class="venue"> {{review.venue}} </span>
-                <span class="venue">— {{review.sit_sector}}</span>
-                <h5 class="concert"> {{review.concert}}</h5>
-                <h6> {{review.stars}} </h6>
-                <div id="stars-container"></div>
-                <p class="review-content"> {{review.content}} </p>
+    <div class="col-md text-break" onclick="window.location='/single_review/{{review.id}}'">
+        <div class="py-4">
+            <div class="author-date">
+                <span> {{review.user_id}}</span>
+                <span class="date"> {{review.date}} </span>
             </div>
+            <span class="venue"> {{review.venue}} </span>
+            <span class="venue">— {{review.sit_sector}}</span>
+            <h5 class="concert"> {{review.concert}}</h5>
+            <div id="stars-container" data-stars="{{review.stars}}"></div>
+            <p class="review-content"> {{review.content}} </p>
         </div>
-        {% if review.photo %}
-        <div class="col-6 col-md-3 " style="justify-content: center; align-items: center;">
-            <img class="rounded img-fluid d-block w-100 fit-cover " style="height: 200px; justify-content: center; align-items: center;" src="{{review.photo.url}}">
-        </div>
-        {% endif %}
     </div>
+    {% if review.photo %}
+    <div class="col-6 col-md-3 " style="justify-content: center; align-items: center;">
+        <img class="rounded img-fluid d-block w-100 fit-cover "
+            style="height: 200px; justify-content: center; align-items: center;" src="{{review.photo.url}}">
+    </div>
+    {% endif %}
+</div>
 
-    <script src="../../static/js/voteButton.js"></script>
-    <script src="../../static/js/star.js"></script>
-    
+<script src="../../static/js/voteButton.js"></script>
+<script src="../../static/js/star.js"></script>

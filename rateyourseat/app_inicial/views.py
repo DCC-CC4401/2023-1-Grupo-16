@@ -66,8 +66,9 @@ def home(request):
     is_logged = request.user.is_authenticated
     best_review = Review.objects.order_by('-votes').first()
     
-    if Vote_Review.objects.filter(user_id=request.user, review_id=best_review).exists():
-            best_review.isPositive=Vote_Review.objects.get(review=best_review,user=request.user).is_positive
+    if is_logged:
+        if Vote_Review.objects.filter(user_id=request.user, review_id=best_review).exists():
+                best_review.isPositive=Vote_Review.objects.get(review=best_review,user=request.user).is_positive
 
     context = {
         'is_logged': is_logged,
@@ -211,7 +212,8 @@ def reviews(request):
         queryset = queryset.order_by('date')
     reviews = queryset.all()
 
-    mantainVotes(request,reviews)
+    if is_logged:
+        mantainVotes(request,reviews)
 
     context = {
         'is_logged': is_logged,
@@ -246,9 +248,9 @@ def single_review(request,id):
         return HttpResponseRedirect('/reviews', context)
 
     comments = Comment.objects.filter(review_id=id)
-
-    if Vote_Review.objects.filter(user_id=request.user, review_id=review).exists():
-            review.isPositive=Vote_Review.objects.get(review=review,user=request.user).is_positive
+    if request.user.is_authenticated:
+        if Vote_Review.objects.filter(user_id=request.user, review_id=review).exists():
+                review.isPositive=Vote_Review.objects.get(review=review,user=request.user).is_positive
 
     if request.method == 'GET': 
         context = {
@@ -319,4 +321,5 @@ def single_review(request,id):
             'comments':comments,
             'current_page': 'reviews',
         }
+
         return HttpResponseRedirect('/single_review/'+id, context)
