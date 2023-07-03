@@ -145,26 +145,49 @@ def reviews(request):
     concert = request.GET.get('searchReview')
     if concert:
         context['all_reviews'] = Review.objects.filter(concert__icontains=concert)
+    vote = request.POST.get('vote') 
+    review_id = request.POST.get('review_id')
+    if vote: 
+        review = Review.objects.get(id=review_id)
+        if vote == 'up':
+            review.up_votes += 1
+        elif vote == 'down':
+            review.down_votes += 1
+        review.save()
     return render(request, 'app_inicial/reviews.html', context)
 
 def single_review(request,id):
+    context = {
+        "is_logged": request.user.is_authenticated,
+        'current_page': 'reviews',
+    }
     if not id:
-        return HttpResponseRedirect('/reviews',{"is_logged": request.user.is_authenticated })
+        return HttpResponseRedirect('/reviews', context)
     
     review=Review.objects.get(id=id)
     if not review:
-        return HttpResponseRedirect('/reviews',{"is_logged": request.user.is_authenticated })
+        return HttpResponseRedirect('/reviews', context)
 
-    comments=Comment.objects.filter(review_id=id)
+    comments = Comment.objects.filter(review_id=id)
 
     if request.method == 'GET': 
-        return render(request, 'app_inicial/single_review.html', {'is_logged': request.user.is_authenticated,'single_review':review, 'comments':comments})
+        context = {
+            'is_logged': request.user.is_authenticated,
+            'single_review':review, 
+            'comments':comments,
+            'current_page': 'reviews',
+        }
+        return render(request, 'app_inicial/single_review.html', context)
     
     if request.method == 'POST':
         modify=request.POST['modify']
         if modify=="delete":
             Review.objects.filter(id=id).delete()
-            return HttpResponseRedirect('/reviews',{"is_logged": request.user.is_authenticated})
+            context = {
+                "is_logged": request.user.is_authenticated,
+                'current_page': 'reviews',
+            }
+            return HttpResponseRedirect('/reviews', context)
         
         elif modify=="edit":
             concert = request.POST['event']
@@ -203,5 +226,10 @@ def single_review(request,id):
             if comment.user_id==request.user:
                 comment.content=comment_content_edit
                 comment.save()
-
-        return HttpResponseRedirect('/single_review/'+id,{'is_logged': request.user.is_authenticated,'single_review':review, 'comments':comments})
+        context = {
+            'is_logged': request.user.is_authenticated,
+            'single_review':review, 
+            'comments':comments,
+            'current_page': 'reviews',
+        }
+        return HttpResponseRedirect('/single_review/'+id, context)

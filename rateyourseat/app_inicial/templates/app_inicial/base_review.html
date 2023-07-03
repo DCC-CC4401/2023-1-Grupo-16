@@ -5,18 +5,23 @@
 {% load static %}
 
 <div class="row review" style="margin-bottom: 7px; justify-content: center; align-items: center; background-color: rgb(230, 229, 229);">
-    <div class="col-sm-1 text-center" style="background-color: rgb(230, 229, 229);" >
-        <div class="vote-container">
-            <!-- Bloque de upvotes: icono + numero -->
-            <button type="button" class="upvote-button">
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            <span>0</span>
-            <!-- Bloque de downvotes: icono + numero -->
-            <button type="button" class="downvote-button">
-                <i class="fas fa-arrow-down"></i>
-            </button>
-        </div>
+    <div class="col-sm-1 border text-center" style="background-color: rgb(230, 229, 229);" >
+        <form method="POST">
+        {% csrf_token %} <!-- csrf token for basic security -->
+            <div class="vote-container">
+                <!-- Bloque de upvotes: icono + numero -->
+                <button name="vote" value="up" type="submit" class="upvote-button" {% if not is_logged %}disabled{% endif %}>
+                    <input id="review_id" name="review_id" type="number" hidden value={{review.id}}>
+                    <i class="fas fa-arrow-up"></i>
+                </button>
+                <p>0</p>
+                <!-- Bloque de downvotes: icono + numero -->
+                <button name="vote" value="down" type="submit" type="button" class="downvote-button" {% if not is_logged %}disabled{% endif %}>
+                    <input id="review_id" name="review_id" type="number" hidden value={{review.id}}>
+                    <i class="fas fa-arrow-down"></i>
+                </button>
+            </div>
+        </form>
     </div>
         <div class="col-md text-break" onclick="window.location='/single_review/{{review.id}}'">
             <div class="py-4">
