@@ -97,7 +97,7 @@ def add_review(request):
             photo = form.cleaned_data.get("image")
         stars = request.POST['puntuacion']
         votes = 0
-        down_votes = 0
+        total_votes = 0
         current_datetime = datetime.datetime.now()
         review = Review(
             user_id=user_id, 
@@ -108,7 +108,7 @@ def add_review(request):
             photo=photo, 
             stars=stars, 
             votes=votes, 
-            down_votes=down_votes, 
+            total_votes=total_votes, 
             date=current_datetime)
         review.save()
         context = {
@@ -154,7 +154,7 @@ def reviews(request):
         if vote == 'up':
             review.votes += 1
         elif vote == 'down':
-            review.down_votes += 1
+            review.total_votes += 1
         review.save()
     return render(request, 'app_inicial/reviews.html', context)
 
