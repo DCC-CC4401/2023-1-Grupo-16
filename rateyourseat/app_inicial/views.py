@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from app_inicial.utils import create_initial_locations
 # from django.urls import reverse
 
 def manageVote(request,kind):
@@ -150,7 +151,12 @@ def add_review(request):
     if request.method =='POST':
         user_id = request.user
         concert = request.POST['event']
-        venue = Location.objects.get(name=request.POST['place-select'])
+        venue_name = request.POST['place-select']
+        venue = Location.objects.filter(name=venue_name)
+        if venue.exists()!=True:
+            print("This venue does not exist in the database")
+            create_initial_locations()
+            venue = Location.objects.get(name=venue_name)
         sit_sector = request.POST['sit-select']
         content = request.POST['content']
         photo = None
