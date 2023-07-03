@@ -23,7 +23,7 @@ class Review(models.Model):
         venue = models.ForeignKey('Location', on_delete=models.CASCADE, to_field='name')
         sit_sector = models.CharField(max_length=30)
         content = models.TextField(max_length=500)
-        photo = models.ImageField(null=True, blank=True, upload_to='media/images/')
+        photo = models.ImageField(null=True, blank=True, upload_to='images/')
         stars = models.PositiveSmallIntegerField()
         votes = models.SmallIntegerField(default=0) #positive-negative votes
         total_votes = models.PositiveSmallIntegerField(default=0) #total number of votes
