@@ -152,11 +152,10 @@ def add_review(request):
         user_id = request.user
         concert = request.POST['event']
         venue_name = request.POST['place-select']
-        venue = Location.objects.filter(name=venue_name)
-        if venue.exists()!=True:
+        if Location.objects.filter(name=venue_name).exists()!=True:
             print("This venue does not exist in the database")
             create_initial_locations()
-            venue = Location.objects.get(name=venue_name)
+        venue = Location.objects.get(name=venue_name)
         sit_sector = request.POST['sit-select']
         content = request.POST['content']
         photo = None
