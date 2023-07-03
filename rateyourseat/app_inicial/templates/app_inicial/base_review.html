@@ -13,7 +13,7 @@
                     <i class="fas fa-arrow-up"></i>
                 </button>
                 <input name="review-id" type="text" hidden value={{review.id}}>
-                <p>{{review.votes}}</p>
+                <br> <span>{{review.votes}}</span> <br>
                 <!-- Bloque de downvotes: icono + numero -->
                 <button name="modify" value="downvote" type="submit" {% if review.isPositive == -1 %} class="downvote-button clicked" {% else %} class="downvote-button" {% endif %} {% if not is_logged %}disabled{% endif %}>
                     <i class="fas fa-arrow-down"></i>
