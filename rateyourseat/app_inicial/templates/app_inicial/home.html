@@ -32,8 +32,11 @@
   </header>
   <section>
     <div class="container py-4 py-xl-5">
+        {% include 'base_review.html' with review=best_review %}    
+
       <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-lg-3">
-        <div class="col">
+
+        {% comment %} <div class="col">
           <div class="card border-light border-1 d-flex justify-content-center p-4">
             <div class="card-body">
               <div class="col">
@@ -58,8 +61,8 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="col">
+        </div> {% endcomment %}
+        {% comment %} <div class="col">
           <div class="card border-light border-1 d-flex justify-content-center p-4">
             <div class="card-body">
               <div class="bs-icon-lg bs-icon-rounded bs-icon-secondary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-4 bs-icon">
@@ -78,8 +81,8 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="col">
+        </div> {% endcomment %}
+        {% comment %} <div class="col">
           <div class="card border-light border-1 d-flex justify-content-center p-4">
             <div class="card-body">
               <div class="bs-icon-lg bs-icon-rounded bs-icon-secondary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-4 bs-icon">
@@ -98,7 +101,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> {% endcomment %}
       </div>
     </div>
   </section>
