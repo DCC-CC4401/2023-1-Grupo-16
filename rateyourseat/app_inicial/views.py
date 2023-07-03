@@ -13,17 +13,20 @@ def manageVote(request,kind):
     if request.user.is_authenticated:
         review_id=request.POST['review-id']
         review=Review.objects.get(id=review_id)
-        
+        #si existia
         if Vote_Review.objects.filter(user_id=request.user, review_id=review_id).exists():
             hasVoted=Vote_Review.objects.get(user_id=request.user, review_id=review_id)
+        #si no existia
         else:
             hasVoted=Vote_Review(
                 user=request.user,
                 review=review,
                 is_positive=0
                 )
-        
-        if hasVoted.is_positive != kind:                
+            
+        #ahora si o si existe
+        #si es 0 -> deberia sumar 1
+        if hasVoted.is_positive == 0:
             review.votes+=kind
             review.total_votes+=1
             hasVoted.is_positive=kind
@@ -31,6 +34,16 @@ def manageVote(request,kind):
             review.save()
             return
         
+        #si es el contrario de antes -> deberia sumar 2
+        if hasVoted.is_positive != kind:                
+            review.votes+=2*kind
+            review.total_votes+=1
+            hasVoted.is_positive=kind
+            hasVoted.save()
+            review.save()
+            return
+        
+        #si es el mismo de antes -> deberia restar 1
         else:
             review.votes-=kind
             review.total_votes-=1
@@ -200,7 +213,7 @@ def single_review(request,id):
         return HttpResponseRedirect('/reviews', context)
 
     comments = Comment.objects.filter(review_id=id)
-
+    
     if request.method == 'GET': 
         context = {
             'is_logged': request.user.is_authenticated,
