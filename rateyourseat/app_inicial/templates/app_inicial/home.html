@@ -38,9 +38,9 @@
           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src={{best_review.photo.url}} class="d-block w-100" alt="best_review">
+        <div class="carousel-inner" >
+          <div class="carousel-item active" style="justify-content: center; align-items: center;">
+            <img src={{best_review.photo.url}} class="d-block w-100 img-fluid d-block fit-cover" alt="best_review" style="width: 800px; height: 500px; margin: 0px;">
             <div class="carousel-caption d-none d-md-block" style="background-color: #0000007c; border-radius: 10px;" >
               <h5>{{best_review.venue}} - {{best_review.concert}}</h5>
               <p>{{best_review.content}}</p>
