@@ -8,14 +8,18 @@
     <div class="col-sm-1 border text-center" style="background-color: rgb(230, 229, 229);" >
         <div class="vote-container">
             <!-- Bloque de upvotes: icono + numero -->
-            <button type="button" class="upvote-button">
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            <p>0</p>
-            <!-- Bloque de downvotes: icono + numero -->
-            <button type="button" class="downvote-button">
-                <i class="fas fa-arrow-down"></i>
-            </button>
+            <form method="post">
+                {% csrf_token %}
+                <button name="modify" value="upvote" type="submit" class="upvote-button">
+                    <i class="fas fa-arrow-up"></i>
+                </button>
+                <input name="review-id" type="text" hidden value={{review.id}}>
+                <p>{{review.votes}}</p>
+                <!-- Bloque de downvotes: icono + numero -->
+                <button name="modify" value="downvote" type="submit" class="downvote-button">
+                    <i class="fas fa-arrow-down"></i>
+                </button>
+            </form>
         </div>
     </div>
         <div class="col-md text-break" onclick="window.location='/single_review/{{review.id}}'">

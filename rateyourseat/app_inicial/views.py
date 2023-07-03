@@ -2,7 +2,7 @@ import datetime
 from django.shortcuts import render, redirect
 from django.template import Template, Context
 from django.template.loader import get_template
-from app_inicial.models import User, Review, Location, ReviewForm, Comment
+from app_inicial.models import User, Review, Location, ReviewForm, Comment, Vote_Review
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -217,6 +217,51 @@ def single_review(request,id):
             if comment.user_id==request.user:
                 comment.content=comment_content_edit
                 comment.save()
+        
+        elif modify=="upvote":
+            review_id=request.POST['review-id']
+            if request.user.is_authenticated:
+                review_id=request.POST['review-id']
+                review=Review.objects.get(id=review_id)
+                
+                if Vote_Review.objects.filter(user_id=request.user, review_id=review_id).exists():
+                    hasVoted=Vote_Review.objects.get(user_id=request.user, review_id=review_id)
+                else:
+                    hasVoted=Vote_Review(
+                        user=request.user,
+                        review=review,
+                        is_positive=0
+                        )
+                
+                if hasVoted.is_positive != 1:                
+                    review.votes+=1
+                    review.total_votes+=1
+                    hasVoted.is_positive=1
+                    hasVoted.save()
+                    review.save()
+
+        elif modify=="downvote":
+            review_id=request.POST['review-id']
+            if request.user.is_authenticated:
+                review_id=request.POST['review-id']
+                review=Review.objects.get(id=review_id)
+                
+                if Vote_Review.objects.filter(user_id=request.user, review_id=review_id).exists():
+                    hasVoted=Vote_Review.objects.get(user_id=request.user, review_id=review_id)
+                else:
+                    hasVoted=Vote_Review(
+                        user=request.user,
+                        review=review,
+                        is_positive=0
+                        )
+                
+                if hasVoted.is_positive != -1:                
+                    review.votes-=1
+                    review.total_votes+=1
+                    hasVoted.is_positive= (-1)
+                    hasVoted.save()
+                    review.save()
+        
         context = {
             'is_logged': request.user.is_authenticated,
             'single_review':review, 

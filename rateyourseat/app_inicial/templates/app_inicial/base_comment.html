@@ -8,6 +8,7 @@
         {%if comment.user_id == USER%}
             <!--funcionamiento de borrado y modificación para cada comentario--> 
             <form method="post">
+                {% csrf_token %} <!-- csrf token for basic security -->
                 <div class="row row-cols-auto">
                     <button class="btn btn-sm btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#WarningCommentModal{{comment.id}}">Eliminar Comentario</button>
                     <p> </p>
@@ -37,22 +38,19 @@
                     <div class="modal fade" id="EditCommentModal{{comment.id}}" tabindex="-1" aria-labelledby="EditCommentModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form method="post">
-                                    {% csrf_token %} <!-- csrf token for basic security -->
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="EditCommentModalLabel">Edita tu comentario</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="EditCommentModalLabel">Edita tu comentario</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <textarea id="comment-content-edit" class="shadow form-control" name="comment-content-edit" rows="6" maxlength="500" placeholder="Escribe tu comentario">{{comment.content}}</textarea>
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="mb-3">
-                                            <textarea id="comment-content-edit" class="shadow form-control" name="comment-content-edit" rows="6" maxlength="500" placeholder="Escribe tu comentario">{{comment.content}}</textarea>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button name="modify" type="submit" class="btn btn-primary" value="edit_comment" method="post">Editar Comentario</button>
-                                        <button type="button" class="btn" style="background-color: gray;color:azure" data-bs-dismiss="modal">Cancelar</button>
-                                    </div>                
-                                </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button name="modify" type="submit" class="btn btn-primary" value="edit_comment" method="post">Editar Comentario</button>
+                                    <button type="button" class="btn" style="background-color: gray;color:azure" data-bs-dismiss="modal">Cancelar</button>
+                                </div>  
                             </div>
                         </div>
                     </div>
