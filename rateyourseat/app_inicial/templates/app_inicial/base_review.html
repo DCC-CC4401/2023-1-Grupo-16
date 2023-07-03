@@ -1,6 +1,5 @@
 <link rel="stylesheet" href="../../static/css/voteButton.css">
 <link rel="stylesheet" href="../../static/css/reviews.css">
-<link rel="stylesheet" href="../static/css/stars.css">
 
 {% load static %}
 
@@ -33,6 +32,7 @@
                 <h5 class="concert"> {{review.concert}}</h5>
                 <h6> {{review.stars}} </h6>
                 <span>Aquí van las estrellas</span>
+                <div id="stars-container"></div>
                 <p class="review-content"> {{review.content}} </p>
             </div>
         </div>
@@ -44,4 +44,5 @@
     </div>
 
     <script src="../../static/js/voteButton.js"></script>
+    <script src="../../static/js/star.js"></script>
     
