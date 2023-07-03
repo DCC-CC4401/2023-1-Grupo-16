@@ -210,6 +210,10 @@ def reviews(request):
         queryset = queryset.order_by('-date')
     elif order == 'oldest':
         queryset = queryset.order_by('date')
+    elif order == 'best':
+        queryset = queryset.order_by('-votes')
+    elif order == 'popular':
+        queryset = queryset.order_by('-total_votes')
     reviews = queryset.all()
 
     if is_logged:
