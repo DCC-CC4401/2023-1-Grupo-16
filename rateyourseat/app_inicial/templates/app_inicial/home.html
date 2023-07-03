@@ -43,7 +43,11 @@
             <img src={{best_review.photo.url}} class="d-block w-100 img-fluid d-block fit-cover" alt="best_review" style="width: 800px; height: 500px; margin: 0px;">
             <div class="carousel-caption d-none d-md-block" style="background-color: #0000007c; border-radius: 10px;" >
               <h5>{{best_review.venue}} - {{best_review.concert}}</h5>
-              <p>{{best_review.content}}</p>
+                {% if best_review.content|length > 250 %}
+                    <p>{{ best_review.content|slice:":250"}} . . .</p>
+                {% else %}
+                    <p>{{ best_review.content }}</p>
+                {% endif %}
               <p style="font-size: 11.5px;">por {{best_review.user_id}}, {{best_review.date}}</p>
             </div>
           </div>
@@ -51,7 +55,11 @@
             <img src={{second_best_review.photo.url}} class="d-block w-100 img-fluid d-block fit-cover" alt="best_review" style="width: 800px; height: 500px; margin: 0px;">
             <div class="carousel-caption d-none d-md-block" style="background-color: #0000007c; border-radius: 10px;" >
               <h5>{{second_best_review.venue}} - {{second_best_review.concert}}</h5>
-              <p>{{second_best_review.content}}</p>
+                {% if second_best_review.content|length > 250 %}
+                    <p>{{ second_best_review.content|slice:":250"}} . . .</p>
+                {% else %}
+                    <p>{{ second_best_review.content }}</p>
+                {% endif %}
               <p style="font-size: 11.5px;">por {{second_best_review.user_id}}, {{second_best_review.date}}</p>
             </div>
           </div>
@@ -59,7 +67,11 @@
             <img src={{third_best_review.photo.url}} class="d-block w-100 img-fluid d-block fit-cover" alt="best_review" style="width: 800px; height: 500px; margin: 0px;">
             <div class="carousel-caption d-none d-md-block" style="background-color: #0000007c; border-radius: 10px;" >
               <h5>{{third_best_review.venue}} - {{third_best_review.concert}}</h5>
-              <p>{{third_best_review.content}}</p>
+              {% if third_best_review.content|length > 250 %}
+                    <p>{{ third_best_review.content|slice:":250"}} . . .</p>
+                {% else %}
+                    <p>{{ third_best_review.content }}</p>
+                {% endif %}
               <p style="font-size: 11.5px;">por {{third_best_review.user_id}}, {{third_best_review.date}}</p>
             </div>
           </div>
