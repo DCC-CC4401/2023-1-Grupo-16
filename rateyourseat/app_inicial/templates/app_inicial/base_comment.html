@@ -1,8 +1,11 @@
 <br>
 <div class="row">
-    <div class="col-md-auto border text-break" style="min-width: 360px; background-color: rgb(230, 229, 229);">
+    <div class="col-md-auto border text-break" style="min-width: 360px; background-color: rgb(230, 229, 229); border-radius: 5px;">
         <div class="py-4" >
-                <h6> {{comment.user_id}} </h6>
+            <div class="author-date">
+                <span> {{comment.user_id}}</span>
+                <span class="date"> {{comment.date}} </span>
+            </div>
                 <p> {{comment.content}} </p>
         </div>
         {%if comment.user_id == USER%}
