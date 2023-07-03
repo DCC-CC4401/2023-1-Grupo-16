@@ -17,10 +17,11 @@
             <h1 class="display-4 fw-bold mb-5">La mejor página para reseñas de conciertos</h1>
             <p class="fs-5 text-muted mb-5">Empieza buscando reseñas por recinto o por evento</p>
             <form class="d-flex justify-content-center flex-wrap" method="post">
-      
-              <div class="shadow-lg mb-3">
-                <a class="btn btn-primary" href="/reviews/">VER RESEÑAS</a>
-              </div>
+              {% if best_review%}
+                <div class="shadow-lg mb-3">
+                  <a class="btn btn-primary" href="/reviews/">VER RESEÑAS</a>
+                </div>
+              {% endif %}
             </form>
           </div>
         </div>
