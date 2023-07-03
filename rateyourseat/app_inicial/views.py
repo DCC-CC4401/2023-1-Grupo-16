@@ -64,7 +64,13 @@ Returns: HttpResponse
 """
 def home(request):
     is_logged = request.user.is_authenticated
-    best_review = Review.objects.order_by('-votes').first()
+
+
+    best_reviews = Review.objects.order_by('-votes')[:3]
+    best_review = best_reviews[0] if len(best_reviews) > 0 else None
+    second_best_review = best_reviews[1] if len(best_reviews) > 1 else None
+    third_best_review = best_reviews[2] if len(best_reviews) > 2 else None
+
     
     if is_logged:
         if Vote_Review.objects.filter(user_id=request.user, review_id=best_review).exists():
@@ -74,6 +80,8 @@ def home(request):
         'is_logged': is_logged,
         'current_page': 'home',
         'best_review': best_review,	
+        'second_best_review': second_best_review,
+        'third_best_review': third_best_review,
     }
     
     if request.method == 'POST':
