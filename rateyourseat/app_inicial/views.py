@@ -8,7 +8,6 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from app_inicial.utils import create_initial_locations
-# from django.urls import reverse
 
 """
 Manage vote for a review.
