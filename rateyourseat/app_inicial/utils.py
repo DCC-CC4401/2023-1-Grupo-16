@@ -36,6 +36,11 @@ initial_locations = {
                 'city': 'Santiago',
                 'country': 'Chile',
         },
+        'Casa CEI': {
+                'address': 'Tupper 2140',
+                'city': 'Santiago',
+                'country': 'Chile',
+        },
 }
 
 def create_initial_locations():

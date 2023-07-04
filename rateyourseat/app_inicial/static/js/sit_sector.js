@@ -27,7 +27,10 @@ const sit={
       {
         "nombre": "Estadio Bicentenario de la Florida",
         "tipos_asiento": ["Cancha", "Platea", "Tribuna", "Pit", "Pacífico", "Andes", "Movilidad reducida", "Otros"]
-      }
+      },
+      { "nombre": "Casa CEI",
+        "tipos_asiento": ["Patio", "Otros"]
+      },
     ]
 }
 
