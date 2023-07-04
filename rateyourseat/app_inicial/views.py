@@ -10,6 +10,16 @@ from django.contrib.auth.decorators import login_required
 from app_inicial.utils import create_initial_locations
 # from django.urls import reverse
 
+"""
+Manage vote for a review.
+This function handles operations related to voting on a review.
+It updates the vote count and the user's voting record.
+Args:
+    request (HttpRequest)
+    kind (int): The type of vote: -1 for negative vote, 1 for positive vote.
+Returns:
+    None
+"""
 def manageVote(request,kind):
     if request.user.is_authenticated:
         review_id=request.POST['review-id']
@@ -52,15 +62,27 @@ def manageVote(request,kind):
             review.save()
             return
 
+"""
+Maintain votes for a list of reviews.
+This function updates the vote status for each review in the given list, based on the user's voting record.
+Args:
+    request (HttpRequest)
+    allReviews (list): A list of review IDs.
+Returns:
+    None
+"""
 def mantainVotes(request,allReviews):
     for r in allReviews:
         if Vote_Review.objects.filter(user_id=request.user, review_id=r).exists():
             r.isPositive=Vote_Review.objects.get(review=r,user=request.user).is_positive
             
 """
-home view: principal page
-Args: request
-Returns: HttpResponse
+Home view
+This function handles the home page.
+Args:
+    request (HttpRequest)
+Returns:
+    HttpResponse
 """
 def home(request):
     is_logged = request.user.is_authenticated
@@ -89,9 +111,12 @@ def home(request):
     
 
 """
-log_in view: log in page
-Args: request
-Returns: HttpResponse
+log_in view:
+This function handles the log in page.
+Args:
+    request (HttpRequest)
+Returns:
+    HttpResponse
 """
 def log_in(request):
     if request.method == 'POST':
@@ -107,9 +132,12 @@ def log_in(request):
     return render(request,"app_inicial/logIn.html")
 
 """
-log_out view: log out page
-Args: request
-Returns: HttpResponse
+log_out view
+This function handles the log out page.
+Args:
+    request
+Returns:
+    HttpResponse
 """
 def log_out(request):
     logout(request)
@@ -118,8 +146,10 @@ def log_out(request):
 
 """
 sign_up view: sign up page
-Args: request
-Returns: HttpResponse
+Args:
+    request
+Returns:
+    HttpResponse
 """
 def sign_up(request):
     if request.method == 'GET':
@@ -138,7 +168,14 @@ def sign_up(request):
         }
         return HttpResponseRedirect('/home', context)
                     
-
+"""
+Add a review (login required).
+This function handles the addition of a review. The user must be logged in to access this view.
+Args:
+    request (HttpRequest)
+Returns:
+    HttpResponse or HttpResponseRedirect: The response object.
+"""
 @login_required(login_url='/log_in')
 def add_review(request):
     if request.method == 'GET':
@@ -182,6 +219,14 @@ def add_review(request):
         }
         return HttpResponseRedirect('/my_reviews', context)
     
+"""
+My reviews (login required).
+This function displays the reviews of the logged-in user and allows them to modify the reviews by voting on them.
+Args:
+    request (HttpRequest)
+Returns:
+    HttpResponse: The response object.
+"""
 @login_required(login_url='/log_in')
 def my_reviews(request):
     reviews = Review.objects.filter(user_id=request.user.id)
@@ -204,6 +249,14 @@ def my_reviews(request):
 
     return render(request, 'app_inicial/my_reviews.html', context)
 
+"""
+Reviews.
+This function displays the available reviews and allows users to search, filter, and modify them.
+Args:
+    request (HttpRequest)
+Returns:
+    HttpResponse: The response object.
+"""
 def reviews(request):
     is_logged = request.user.is_authenticated
     queryset = Review.objects.all()
@@ -244,6 +297,15 @@ def reviews(request):
       
     return render(request, 'app_inicial/reviews.html', context)
 
+"""
+Single review.
+This function displays the information of a single review and allows users to comment on it.
+Args:
+    request (HttpRequest)
+    id (int): The id of the review.
+Returns:
+    HttpResponse: The response object.
+""" 
 def single_review(request,id):
     context = {
         "is_logged": request.user.is_authenticated,
