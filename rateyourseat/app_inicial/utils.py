@@ -51,6 +51,11 @@ initial_locations = {
                 'city': 'New York',
                 'country': 'USA',
         },
+        'SoFi Stadium': {
+                'address': '1001 S Prairie Ave, Inglewood',
+                'city': 'California',
+                'country': 'USA',
+        },
 }
 
 def create_initial_locations():

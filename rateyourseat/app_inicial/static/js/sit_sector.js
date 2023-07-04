@@ -37,7 +37,11 @@ const sit={
       },
       {
         "nombre": "UBS Arena",
-        "tipos_asiento": ["Cancha", "Section 324-304", "Section 224-204", "Section 117-102", "Movilidad reducida", "Suite", "Otros"]
+        "tipos_asiento": ["Concert Floor", "300 Level", "200 Level", "100 Level", "Lower Club Level", "Suite and Loft Level", "Otros"]
+      },
+      {
+        "nombre": "SoFi Stadium",
+        "tipos_asiento": ["Concert Floor", "500 Level", "400 Level", "300 Level", "200 Level", "100 Level", "Suite", "Otros"]
       },
     ]
 }

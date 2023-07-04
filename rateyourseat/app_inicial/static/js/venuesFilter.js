@@ -10,6 +10,7 @@ const sit={
       {"nombre": "Casa CEI"},
       {"nombre": "Allianz Parque"},
       {"nombre": "UBS Arena"},
+      {"nombre": "SoFi Stadium"},
     ]
 }
 
