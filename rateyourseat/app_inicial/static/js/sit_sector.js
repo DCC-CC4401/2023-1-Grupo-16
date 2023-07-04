@@ -34,7 +34,11 @@ const sit={
       {
         "nombre": "Allianz Parque",
         "tipos_asiento": ["Cadeira Superior", "Cadeira Inferior", "Pista", "Pista Premium", "Pista VIP", "Otros"]
-      }
+      },
+      {
+        "nombre": "UBS Arena",
+        "tipos_asiento": ["Cancha", "Section 324-304", "Section 224-204", "Section 117-102", "Movilidad reducida", "Suite", "Otros"]
+      },
     ]
 }
 

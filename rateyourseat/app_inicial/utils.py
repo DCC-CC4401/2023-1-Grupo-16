@@ -46,6 +46,11 @@ initial_locations = {
                 'city': 'São Paulo',
                 'country': 'Brasil',
         },
+        'UBS Arena': {
+                'address': '2400 Hempstead Turnpike, Elmont',
+                'city': 'New York',
+                'country': 'USA',
+        },
 }
 
 def create_initial_locations():
