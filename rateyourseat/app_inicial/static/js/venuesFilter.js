@@ -8,6 +8,7 @@ const sit={
       {"nombre": "Estadio Monumental"},
       {"nombre": "Estadio Bicentenario de la Florida"},
       {"nombre": "Casa CEI"},
+      {"nombre": "Allianz Parque"},
     ]
 }
 

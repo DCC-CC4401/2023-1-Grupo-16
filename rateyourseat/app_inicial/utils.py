@@ -41,6 +41,11 @@ initial_locations = {
                 'city': 'Santiago',
                 'country': 'Chile',
         },
+        'Allianz Parque': {
+                'address': 'Av. Francisco Matarazzo 1705',
+                'city': 'São Paulo',
+                'country': 'Brasil',
+        },
 }
 
 def create_initial_locations():

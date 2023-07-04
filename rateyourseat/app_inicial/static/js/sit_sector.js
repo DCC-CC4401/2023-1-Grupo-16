@@ -31,6 +31,10 @@ const sit={
       { "nombre": "Casa CEI",
         "tipos_asiento": ["Patio", "Otros"]
       },
+      {
+        "nombre": "Allianz Parque",
+        "tipos_asiento": ["Cadeira Superior", "Cadeira Inferior", "Pista", "Pista Premium", "Pista VIP", "Otros"]
+      }
     ]
 }
 
