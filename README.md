@@ -24,10 +24,11 @@
 
 ## Direcciones y funcionalidades 
 + **Navbar**:  
-A través de la página siempre esta presenta una barra de navegacion con el nombre de la aplicación. También tiene los enlaces a Inicio(**`/home`**), reseñas(**`/reviews`**), agregar reseña(**`/add-review`**) y mis reseñas(**`/my_reviews`**). Y por último, a la izquierda tiene un botón para iniciar sesión (**`/log_in`**) en caso de no estar iniciado o el nombre del perfil con un enlace a mis reseñas junto a un boton para cerrar sesion.  
+A través de la página, siempre esta presenta una barra de navegacion con el nombre de la aplicación. También tiene los enlaces a Inicio(**`/home`**), reseñas(**`/reviews`**), agregar reseña(**`/add-review`**) y mis reseñas(**`/my_reviews`**). Y por último, a la izquierda tiene un botón para iniciar sesión (**`/log_in`**) en caso de no estar iniciado o el nombre del perfil con un enlace a mis reseñas junto a un boton para cerrar sesión.  
 
 + **Reviews**:  
-Las reviews o reseñas son lo principal del sitio. Cada reseña se organiza tal que a la izquierda se encuentran los botones de 'upvote' y 'downvote' que son los votos positivos y negativos respectivamente. Entre esos dos botones se encuentra la puntuación de la reseña que es la resta entre votos positivos y negativos. Si el usuario viendo la reseña no tiene sesión iniciada, no sera capaz de interactuar con la reseña. Después de los votos se encuentra la información de la reseña partiendo con el nombre de usuario del autor, la fecha de creación de la reseña, el lugar/estadio del evento y el sector del asiento del que quiere hacer una reseña. Seguido de lo anterior se encuentra el nombre del artista o evento si fue ingresado, la puntuacion en estrellas que le da a su posicion en el concierto y el contenido en texto de la reseña como tal.
+Las reviews o reseñas son lo principal del sitio. Cada reseña se organiza tal que a la izquierda se encuentran los botones de 'upvote' y 'downvote' que son los votos positivos y negativos respectivamente. Entre esos dos botones se encuentra la puntuación de la reseña que es la resta entre votos positivos y negativos. Si el usuario viendo la reseña no tiene sesión iniciada, no será capaz de interactuar con la reseña.
+Después de los votos se encuentra la información de la reseña partiendo con el nombre de usuario del autor, la fecha de creación de la reseña, el lugar/estadio del evento y el sector del asiento del que quiere hacer una reseña. Seguido de lo anterior se encuentra el nombre del artista o evento si fue ingresado, la puntuacion en estrellas que le da a su posicion en el concierto y el contenido en texto de la reseña como tal.
 Por último a la derecha se encuentra una imagen de como se veía desde ese asiento en caso de que el usuario haya ingresado una imagen.  
 Al dejar el cursor encima de una reseña por un momento, aparecerá un pequeño mensaje: __'Click para comentar y más'__, el cual es para indicar que al hacer click en la reseña redirigirá al usuario a `/single_review/id`.
 
@@ -45,7 +46,8 @@ Página para registrarse en la aplicación y agregar un nuevo usuario a la base 
 En reseñas se encuentra todas las reseñas de la página en conjunto a un filtro por recintos, opciones para ordenar por novedad, popularidad, antiguedad y puntuación. Y también hay una barra que permite buscar reseñas por artista o nombre de evento.  
 
 + **`/add-reviews`**:  
-Esta página solo se puede acceder con una sesion iniciada, en caso contrario redirige a iniciar sesion (`/log_in`).  
+Esta página solo se puede acceder con una sesion iniciada, en caso contrario redirige a iniciar sesion (`/log_in`).
+Para acceder a esta página se debe apretar el botón __'Agregar reseña'__ en la barra de navegación, o usar el botón del lápiz en la esquina inferior derecha de la pantalla.
 En agregar reseña se presenta un form que tiene los siguientes campos: Recinto, Sector, Artista o evento(opcinal), Evalua tu experiencia(con estrellas), Describe tu experiencia y selecciona archivo. Una vez se envía el form con el botón __'Publicar'__, se procesa el input y se crea una reseña que se mostrará en las demás páginas adecuadamente.   
 
 + **`/my_reviews`**:  
@@ -57,4 +59,6 @@ En esta página se muestra una única reseña, especificamente la reseña cuyo i
 Al apretar el boton __'Eliminar'__ en la esquina inferior derecha de la reseña, aparecera una advertencia indicando que esta acción es irreversible y pidiendo confirmación al usuario.  
 Al apretar el botón __'Editar'__ en la esquina inferior derecha de la reseña, aparecerá un modal con los inputs: 'Artista o evento', 'Evalua tu experiencia' con estrellas y el contenido en texto de la reseña. Exepto por 'Evalua tu experiencia', los campos están rellenados según la información original de la reseña, y los cambios se actualizan al apretar el botón Editar reseña del modal.  
 Al apretar el botón de **'Escribe tu comentario!'** se abre un modal que recibe el contenido del comentario para publicarlo y dejarlo abajo de la publicación ordenados por antiguedad. Los comentarios se organizan de forma que se enseña el autor, la fecha de creación y el contenido del comentario en texto. Si el usuario tiene la autoría de algún comentario en este aparecerán los botones __'Eliminar'__ y __'Editar'__ con un funcionamiento similar que en una reseña pero para ese comentario en partícular.  
+
+
 
